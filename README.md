@@ -1,0 +1,2 @@
+# DoodCore
+Bukkit/Spigot plugin
