@@ -1,4 +1,4 @@
-package net.dreadcraft.dooder07.spigot.doodcore;
+package net.doodcore.dooder07.spigot.doodcore;
 
 import org.bukkit.ChatColor;
 
