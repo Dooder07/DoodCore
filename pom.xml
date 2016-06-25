@@ -123,5 +123,13 @@
             <artifactId>Essentials</artifactId>
             <version>Pre2.13.1.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.palmergames.bukkit</groupId>
+            <artifactId>Towny</artifactId>
+            <version>0.91.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/Towny.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>
