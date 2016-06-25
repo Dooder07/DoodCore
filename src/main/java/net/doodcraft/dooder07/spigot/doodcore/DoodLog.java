@@ -52,7 +52,7 @@ public class DoodLog {
         Player dev = Bukkit.getPlayer(Settings.developerName);
 
         if (dev != null && Settings.messageDeveloper) {
-            dev.sendMessage(StringParser.addColor("&0C&8O&9R&3E:&7 " + message));
+            dev.sendMessage(StringParser.addColor("&3C&9O&8R&0E:&7 " + message));
         }
 
         if (Settings.debugMode) {
