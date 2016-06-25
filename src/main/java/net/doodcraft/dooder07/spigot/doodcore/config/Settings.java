@@ -32,6 +32,7 @@ import java.util.List;
  */
 public class Settings {
 
+    // CONFIG
     public static Boolean colorfulLogging;
     public static Boolean debugMode;
     public static String developerName;
@@ -51,6 +52,21 @@ public class Settings {
 
     public static List<String> validWelcomeList;
 
+    public static int townDistance;
+    public static List<String> townDistanceChecklist;
+    public static int chorusDistance;
+    public static boolean checkChorusFruitTeleport;
+
+    public static List<String> bruteForcePasswords;
+
+    public static int pvpNewbTime;
+
+    public static boolean despawnSkeletonHorses;
+    public static int skeletonHorseReduction;
+
+    public static boolean stickDrops;
+
+    // LOCALE
     public static String serverName;
     public static String pluginPrefix;
 
@@ -90,6 +106,35 @@ public class Settings {
         validWelcomeList.add("bienvenidos");
         validWelcomeList.add("velcome");
 
+        townDistance = 200;
+        townDistanceChecklist = new ArrayList<>();
+        townDistanceChecklist.add("wxcomplete");
+        townDistanceChecklist.add("sethome");
+        townDistanceChecklist.add("t claim");
+        townDistanceChecklist.add("town claim");
+        chorusDistance = 10;
+        checkChorusFruitTeleport = true;
+
+        bruteForcePasswords = new ArrayList<>();
+        bruteForcePasswords.add("password");
+        bruteForcePasswords.add("passwort");
+        bruteForcePasswords.add("password1");
+        bruteForcePasswords.add("passwort1");
+        bruteForcePasswords.add("pass");
+        bruteForcePasswords.add("wurst");
+        bruteForcePasswords.add("admin");
+        bruteForcePasswords.add("hallo");
+        bruteForcePasswords.add("auth");
+        bruteForcePasswords.add("authme");
+        bruteForcePasswords.add("pw");
+        bruteForcePasswords.add("me");
+        bruteForcePasswords.add("qwerty");
+
+        pvpNewbTime = 360;
+
+        despawnSkeletonHorses = false;
+        skeletonHorseReduction = 75;
+
         // LOCALE
         serverName = Bukkit.getServerName();
         pluginPrefix = "&e[&6DoodCore&e]&r";
@@ -119,6 +164,20 @@ public class Settings {
         config.add("TimeRewards.Interval", timeRewardsInterval);
 
         config.add("Welcome.ValidGreetings", validWelcomeList);
+
+        config.add("Compliance.TownCheck.Distance", townDistance);
+        config.add("Compliance.TownCheck.Commands", townDistanceChecklist);
+        config.add("Compliance.ChorusFruit.Distance", chorusDistance);
+        config.add("Compliance.ChorusFruit.CheckTeleport", checkChorusFruitTeleport);
+
+        config.add("AntiHack.PasswordBruteForce.PassList", bruteForcePasswords);
+
+        config.add("PvPManager.DefaultNewbTime", pvpNewbTime);
+
+        config.add("VanillaMod.SkeletonHorses.Despawn", despawnSkeletonHorses);
+        config.add("VanillaMod.SkeletonHorses.ReductionPercent", skeletonHorseReduction);
+
+        config.add("VanillaMod.StickDrops", stickDrops);
 
         //      LOCALE
         locale.add("Server.Name", serverName);
@@ -150,6 +209,18 @@ public class Settings {
         timeRewardsInterval = config.getInteger("TimeRewards.Interval");
 
         validWelcomeList = config.getStringList("Welcome.ValidGreetings");
+
+        townDistance = config.getInteger("Compliance.TownCheck.Distance");
+        townDistanceChecklist = config.getStringList("Compliance.TownCheck.Commands");
+        chorusDistance = config.getInteger("Compliance.ChorusFruit.Distance");
+        checkChorusFruitTeleport = config.getBoolean("Compliance.ChorusFruit.CheckTeleport");
+
+        pvpNewbTime = config.getInteger("PvPManager.DefaultNewbTime");
+
+        despawnSkeletonHorses = config.getBoolean("VanillaMod.SkeletonHorses.Despawn");
+        skeletonHorseReduction = config.getInteger("VanillaMod.SkeletonHorses.ReductionPercent");
+
+        stickDrops = config.getBoolean("VanillaMod.StickDrops");
     }
 
     public static void setNewLocaleValues(Configuration locale) {

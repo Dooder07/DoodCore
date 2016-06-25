@@ -35,7 +35,7 @@ public class Vault {
     public static Economy economy;
 
     public static boolean isInstalled() {
-        return Compatibility.hooked.get("Vault") != null;
+        return Compatibility.isHooked("Vault");
     }
 
     public static boolean setupChat() {

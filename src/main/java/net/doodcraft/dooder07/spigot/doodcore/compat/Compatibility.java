@@ -33,6 +33,14 @@ public class Compatibility {
 
     public static HashMap<String, Plugin> hooked;
 
+    public static boolean isHooked(String name) {
+        return hooked.get(name) != null;
+    }
+
+    public static Plugin getPlugin(String name) {
+        return hooked.get(name);
+    }
+
     public static void checkHooks() {
         hooked = new HashMap<>();
 
@@ -44,6 +52,8 @@ public class Compatibility {
 
         hookPlugin("ProtocolLib", "4.0.2", "4.0.2");
         hookPlugin("Essentials", "2.0.1", "2.0.1");
+        hookPlugin("Towny", "0.91.1", "0.91.1");
+        hookPlugin("Litebans", "2.0.17", "2.0.17");
     }
 
     public static boolean hookPlugin(String name, String min, String max) {
@@ -56,7 +66,7 @@ public class Compatibility {
 
             String version = versionPart[0];
 
-            if (checkVersion(version, min, max)) {
+            if (isSupported(version, min, max)) {
 
                 if (!hooked.containsKey(name)) {
                     hooked.put(name, hook);
@@ -89,7 +99,7 @@ public class Compatibility {
         }
     }
 
-    public static boolean checkVersion(String version, String min, String max) {
+    public static boolean isSupported(String version, String min, String max) {
         return compareVersions(version, min) >= 0 && compareVersions(version, max) <= 0;
     }
 
@@ -110,7 +120,6 @@ public class Compatibility {
 
             return Integer.signum(diff);
         } else {
-
             return Integer.signum(vals1.length - vals2.length);
         }
     }

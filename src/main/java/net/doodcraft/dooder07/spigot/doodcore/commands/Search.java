@@ -22,6 +22,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * The MIT License (MIT)
+ * -
+ * Copyright (c) 2016 Conor O'Shields
+ * -
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * -
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * -
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 public class Search implements CommandExecutor {
 
     @Override
@@ -39,7 +62,7 @@ public class Search implements CommandExecutor {
                     player.sendMessage(StringParser.addColor("/search chunkradius string\nExample: /search 5 diamond"));
                     return false;
                 } else {
-                    Bukkit.getScheduler().runTaskLater(DoodCorePlugin.plugin, new Runnable(){
+                    Bukkit.getScheduler().runTaskLater(DoodCorePlugin.plugin, new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -78,11 +101,11 @@ public class Search implements CommandExecutor {
                                         }
                                     }
 
-                                    for(int x = 0; x <= 16; x++) {
-                                        for(int y = 0; y <= 256; y++) {
-                                            for(int z = 0; z <= 16; z++) {
+                                    for (int x = 0; x <= 16; x++) {
+                                        for (int y = 0; y <= 256; y++) {
+                                            for (int z = 0; z <= 16; z++) {
                                                 Block b = chunk.getBlock(x, y, z);
-                                                if(b.getType().equals(Material.CHEST)) {
+                                                if (b.getType().equals(Material.CHEST)) {
                                                     Chest chest = (Chest) b.getState();
                                                     Inventory inv = chest.getBlockInventory();
 
@@ -145,7 +168,7 @@ public class Search implements CommandExecutor {
                                 DoodLog.printError("DreadGuard", "Error executing /search!", ex);
                             }
                         }
-                    },1L);
+                    }, 1L);
                     return true;
                 }
             } else {

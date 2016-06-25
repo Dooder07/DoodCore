@@ -53,7 +53,7 @@ public class TabMenu implements Listener {
 
     @SuppressWarnings("ConstantConditions")
     public static void updateTabList() {
-        if (Compatibility.hooked.get("ProtocolLib") != null) {
+        if (Compatibility.isHooked("ProtocolLib")) {
             if (Bukkit.getOnlinePlayers().size() >= 1) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     PacketContainer packet = Protocollib.getManager().createPacket(PacketType.Play.Server.PLAYER_LIST_HEADER_FOOTER);

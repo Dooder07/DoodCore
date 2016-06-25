@@ -52,7 +52,6 @@ public class Configuration {
 
         file = new File(path);
 
-        // TODO: Make this better?
         if (!file.exists() || file == null) {
             try {
                 if (file.createNewFile()) {

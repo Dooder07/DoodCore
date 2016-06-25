@@ -56,7 +56,7 @@ public class PlayerWelcome implements Listener {
 
                 Bukkit.getScheduler().runTaskLater(DoodCorePlugin.plugin, () -> {
 
-                    if (Compatibility.hooked.get("Vault") != null) {
+                    if (Compatibility.isHooked("Vault")) {
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             if (!Vault.permission.getPrimaryGroup(p).equalsIgnoreCase("guest")) {
                                 p.sendMessage(StringParser.addColor("&dWelcome " + player.getDisplayName() + " &dwithin 60 seconds for a reward!"));
@@ -119,7 +119,7 @@ public class PlayerWelcome implements Listener {
 
     public void giveReward(Player greeter, Player greeted) {
 
-        if (Compatibility.hooked.get("Vault") != null) {
+        if (Compatibility.isHooked("Vault")) {
             greeter.sendMessage(StringParser.addColor(Settings.pluginPrefix + "&aBoth of you earned a bonus &6$10&a!"));
 
             Economy econ = Vault.economy;

@@ -3,7 +3,7 @@ version: 0.1.0
 authors: [Dooder07]
 website: http://doodcraft.net/
 main: net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin
-softdepend: [Vault, ProtocolLib, Essentials]
+softdepend: [Vault, ProtocolLib, Essentials, Towny, Litebans]
 
 commands:
   core:
@@ -19,6 +19,9 @@ commands:
 permissions:
   doodcore.admin:
     description: Parent node for administrators
+    default: OP
+  doodcore.admin.bypass:
+    description: Bypass any limiting features
     default: OP
   doodcore.command.reload:
     description: Allows /core reload

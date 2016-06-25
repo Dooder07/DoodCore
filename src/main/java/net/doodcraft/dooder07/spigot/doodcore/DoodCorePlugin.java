@@ -1,11 +1,10 @@
 package net.doodcraft.dooder07.spigot.doodcore;
 
+import net.doodcraft.dooder07.spigot.doodcore.anticheat.PasswordBruteForce;
 import net.doodcraft.dooder07.spigot.doodcore.commands.*;
 import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
 import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
-import net.doodcraft.dooder07.spigot.doodcore.features.PlayerWelcome;
-import net.doodcraft.dooder07.spigot.doodcore.features.TabMenu;
-import net.doodcraft.dooder07.spigot.doodcore.features.TimeRewards;
+import net.doodcraft.dooder07.spigot.doodcore.features.*;
 import net.doodcraft.dooder07.spigot.doodcore.sql.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -102,6 +101,7 @@ public class DoodCorePlugin extends JavaPlugin {
 
         // FEATURES
         TimeRewards.addAllPlayers();
+        PasswordBruteForce.addAllPlayers();
         TabMenu.startRefresh();
     }
 
@@ -120,6 +120,7 @@ public class DoodCorePlugin extends JavaPlugin {
 
         // FEATURES
         TimeRewards.removeAllPlayers();
+        PasswordBruteForce.removeAllPlayers();
         TabMenu.stopRefresh();
     }
 
@@ -127,6 +128,14 @@ public class DoodCorePlugin extends JavaPlugin {
         registerEvents(plugin, new PlayerWelcome());
         registerEvents(plugin, new TimeRewards());
         registerEvents(plugin, new TabMenu());
+        registerEvents(plugin, new ChorusFruit());
+        registerEvents(plugin, new TownDistance());
+        registerEvents(plugin, new PasswordBruteForce());
+        registerEvents(plugin, new NewbieProtection());
+        registerEvents(plugin, new MobFarming());
+        registerEvents(plugin, new PotionBlocking());
+        registerEvents(plugin, new SkeletonHorses());
+        registerEvents(plugin, new StickDrops());
     }
 
     public static void registerEvents(Plugin plugin, Listener... listeners) {

@@ -9,6 +9,7 @@ import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
 import net.doodcraft.dooder07.spigot.doodcore.compat.Vault;
 import net.doodcraft.dooder07.spigot.doodcore.config.Configuration;
 import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -120,8 +121,8 @@ public class TimeRewards implements Listener {
                 DoodLog.debug(player.getName() + " did not earn money because they are offline. Stopping task.");
                 removePayee(player);
             } else {
-                if (Compatibility.hooked.get("Essentials") != null) {
-                    Essentials ess = (Essentials) Compatibility.hooked.get("Essentials");
+                if (Compatibility.isHooked("Essentials")) {
+                    Essentials ess = (Essentials) Compatibility.getPlugin("Essentials");
                     User p = ess.getUser(player);
 
                     if (p.isAfk()) {
@@ -169,8 +170,9 @@ public class TimeRewards implements Listener {
         int earnedToday = config.getInteger("Earned.Today");
         int earnedAllTime = config.getInteger("Earned.AllTime");
 
-        if (Compatibility.hooked.get("Vault") != null) {
-            Vault.economy.depositPlayer(player, Settings.timeRewardsAmount);
+        if (Compatibility.isHooked("Vault")) {
+            Economy econ = Vault.economy;
+            econ.depositPlayer(player, Settings.timeRewardsAmount);
 
             config.set("Earned.Today", earnedToday + Settings.timeRewardsAmount);
             config.set("Earned.AllTime", earnedAllTime + Settings.timeRewardsAmount);

@@ -52,16 +52,16 @@ public class DoodLog {
         Player dev = Bukkit.getPlayer(Settings.developerName);
 
         if (dev != null && Settings.messageDeveloper) {
-            dev.sendMessage(StringParser.addColor("&8KORE:&7 " + message));
+            dev.sendMessage(StringParser.addColor("&0C&8O&9R&3E:&7 " + message));
         }
 
         if (Settings.debugMode) {
             if (Settings.colorfulLogging) {
                 message = StringParser.addColor(message);
-                log("DreadKore|Debug", message);
+                log("Core|Debug", message);
             } else {
                 message = StringParser.removeColor(message);
-                log("DreadKore|Debug", message);
+                log("Core|Debug", message);
             }
         }
     }
