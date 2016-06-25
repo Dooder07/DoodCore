@@ -59,42 +59,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>1.5</version>
-                <configuration>
-                    <artifactSet>
-                        <includes>
-                            <include>commons-logging:commons-logging</include>
-                            <include>org.apache.tomcat:tomcat-jdbc</include>
-                            <include>org.apache.tomcat:tomcat-juli</include>
-                        </includes>
-                    </artifactSet>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.apache.commons.logging</pattern>
-                            <shadedPattern>com.gmail.nossr50.commons.logging</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.apache.juli</pattern>
-                            <shadedPattern>com.gmail.nossr50.database.tomcat.juli</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.apache.tomcat</pattern>
-                            <shadedPattern>com.gmail.nossr50.database.tomcat</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
         <extensions>
             <extension>
