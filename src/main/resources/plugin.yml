@@ -14,7 +14,7 @@ commands:
     description: Rename the item in your main hand
   relore:
     description: Relore the item in your main hand
-  command:
+  search:
     description: Search nearby for items or entities
 permissions:
   doodcore.admin:
