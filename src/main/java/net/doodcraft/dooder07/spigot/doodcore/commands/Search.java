@@ -75,16 +75,20 @@ public class Search implements CommandExecutor {
 
                                 ArrayList<Chunk> chunks = new ArrayList<>();
                                 Chunk chunk = player.getLocation().getChunk();
-                                int chunkX = chunk.getX();
-                                int chunkZ = chunk.getZ();
+                                int chunkX = chunk.getX() + 1;
+                                int chunkZ = chunk.getZ() + 1;
 
                                 ArrayList<Entity> mobs = new ArrayList<>();
                                 HashMap<Block, ItemStack> chests = new HashMap<>();
 
-                                for (int x = (chunkX - radius); x < (chunkX + radius); x++) {
-                                    for (int z = (chunkZ - radius); z < (chunkZ + radius); z++) {
-                                        Chunk c = player.getWorld().getChunkAt(x, z);
-                                        chunks.add(c);
+                                if (radius == 0) {
+                                    chunks.add(chunk);
+                                } else {
+                                    for (int x = (chunkX - radius); x < (chunkX + radius); x++) {
+                                        for (int z = (chunkZ - radius); z < (chunkZ + radius); z++) {
+                                            Chunk c = player.getWorld().getChunkAt(x, z);
+                                            chunks.add(c);
+                                        }
                                     }
                                 }
 
