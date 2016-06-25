@@ -3,12 +3,30 @@ version: 0.1.0
 authors: [Dooder07]
 website: http://doodcraft.net/
 main: net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin
-softdepend: [Vault, Protocollib]
+softdepend: [Vault, ProtocolLib, Essentials]
 
 commands:
   core:
     description: Base command
+  compel:
+    description: Compel a player to chat or use a command
+  rename:
+    description: Rename the item in your main hand
+  relore:
+    description: Relore the item in your main hand
 permissions:
   doodcore.admin:
     description: Parent node for administrators
+    default: OP
+  doodcore.command.reload:
+    description: Allows /core reload
+    default: OP
+  doodcore.command.compel:
+    description: Allows /compel
+    default: OP
+  doodcore.command.rename:
+    description: Allows /rename
+    default: OP
+  doodcore.command.relore:
+    description: Allows /relore
     default: OP

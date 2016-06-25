@@ -1,6 +1,8 @@
 package net.doodcore.dooder07.spigot.doodcore;
 
-import org.bukkit.ChatColor;
+import mkremins.fanciful.FancyMessage;
+import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import org.bukkit.entity.Player;
 
 /**
  * The MIT License (MIT)
@@ -25,12 +27,9 @@ import org.bukkit.ChatColor;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-public class StringParser {
-    public static String addColor(String message) {
-        return ChatColor.translateAlternateColorCodes('&', message);
-    }
-
-    public static String removeColor(String message) {
-        return ChatColor.stripColor(message);
+public class Methods {
+    public static void sendNoPermission(Player player, String node) {
+        FancyMessage message = new FancyMessage(StringParser.addColor(Settings.pluginPrefix + " &cNo permission")).tooltip(StringParser.addColor("&b" + node));
+        message.send(player);
     }
 }
