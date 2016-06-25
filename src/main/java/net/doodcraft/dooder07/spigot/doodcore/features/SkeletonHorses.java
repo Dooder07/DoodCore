@@ -62,17 +62,21 @@ public class SkeletonHorses implements Listener {
 
                         Block block = loc.getBlock();
 
-                        if (!TownyUniverse.isWilderness(block)) {
+                        // CHECK TOWN
+                        if (Compatibility.isHooked("Towny")) {
+                            if (!TownyUniverse.isWilderness(block)) {
 
-                            DoodLog.debug("Blocking skeleton horse spawn inside town at [" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + "]");
-                            event.setCancelled(true);
-                        } else {
-                            // CHECK RANDOM
-                            if (random.nextInt(100) + 1 >= Settings.skeletonHorseReduction) {
-
-                                DoodLog.debug("Blocking skeleton horse spawn randomly at [" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + "]");
+                                DoodLog.debug("Blocking skeleton horse spawn inside town at [" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + "]");
                                 event.setCancelled(true);
+                                return;
                             }
+                        }
+
+                        // CHECK RANDOM
+                        if (random.nextInt(100) + 1 >= Settings.skeletonHorseReduction) {
+
+                            DoodLog.debug("Blocking skeleton horse spawn randomly at [" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + "]");
+                            event.setCancelled(true);
                         }
                     } else {
                         int chance = random.nextInt(100) + 1;
@@ -105,12 +109,18 @@ public class SkeletonHorses implements Listener {
 
                 if (var.equals(Horse.Variant.SKELETON_HORSE)) {
 
-                    if (horse.getCustomName() == null && horse.getInventory().getSaddle() == null) {
-                        horse.remove();
-                        DoodLog.debug(horse.getEntityId() + " (" + horse.getCustomName() + ") " + "was removed.");
-                    } else {
-                        DoodLog.debug(horse.getEntityId() + " (" + horse.getCustomName() + ") " + "was NOT removed.");
+                    if (horse.getCustomName() != null) {
+                        DoodLog.debug("NAMED HORSE: [&b" + horse.getCustomName() + "&7] " + "was NOT removed.");
+                        return;
                     }
+
+                    if (horse.getInventory().getSaddle() != null) {
+                        DoodLog.debug("SADDLED HORSE: [&b" + horse.getCustomName() + "&7] " + "was NOT removed.");
+                        return;
+                    }
+
+                    horse.remove();
+                    DoodLog.debug("UNNAMED HORSE: [&b" + horse.getCustomName() + "&7] " + "was removed.");
                 }
             }
         }
