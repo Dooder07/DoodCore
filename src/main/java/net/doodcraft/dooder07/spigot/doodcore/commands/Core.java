@@ -45,7 +45,7 @@ public class Core implements CommandExecutor {
                 msg.tooltip(StringParser.addColor("&8Author: &6Dooder07\n&dFor DreadCraft &5<3"));
 
                 if (sender instanceof Player) {
-                    msg.send(sender);
+                    Methods.sendFancyMessage((Player) sender, msg);
                 } else {
                     DoodLog.log("DoodCore", StringParser.addColor("&6&l&oKore&7 v" + DoodCorePlugin.plugin.getDescription().getVersion() + "\n&8Author: &6Dooder07\n&8Website: &bhttp://doodcraft.net/"));
                 }
