@@ -58,6 +58,7 @@ public class DoodCorePlugin extends JavaPlugin {
 
         plugin = this;
 
+        Settings.setupDefaults();
         Compatibility.checkHooks();
         TabMenu.startRefresh();
 
@@ -80,7 +81,6 @@ public class DoodCorePlugin extends JavaPlugin {
 
     public static void initialize() {
         // CONFIGURATION
-        Settings.setupDefaults();
         Settings.reload();
 
         // SQL
