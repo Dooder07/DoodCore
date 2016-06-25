@@ -1,6 +1,13 @@
 package net.doodcore.dooder07.spigot.doodcore;
 
+import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import net.doodcore.dooder07.spigot.doodcore.sql.mysql.MySQL;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * The MIT License (MIT)
@@ -29,6 +36,11 @@ public class DoodCorePlugin extends JavaPlugin {
 
     public static DoodCorePlugin plugin;
     public static long startTime;
+    public static List<Integer> tasks;
+
+    public static MySQL mySql = null;
+    public static Connection connection = null;
+    public static boolean usingMySQL = false;
 
     @Override
     public void onEnable() {
@@ -46,11 +58,59 @@ public class DoodCorePlugin extends JavaPlugin {
         cleanUp();
     }
 
-    public void initialize() {
+    public void reload() {
+        cleanUp();
+        initialize();
+    }
 
+    public void initialize() {
+        // CONFIGURATION
+        Settings.setupDefaults();
+        Settings.reload();
+
+        // SQL
+        if (Settings.useMySQL) {
+            // MySQL
+            DoodLog.log("DoodCore", "&7&oEstablishing link with MySQL..");
+            try {
+                mySql = new MySQL(Settings.mySQLHost, String.valueOf(Settings.mySQLPort), Settings.mySQLDatabase, Settings.mySQLUser, Settings.mySQLPass);
+                connection = mySql.openConnection();
+                DoodLog.log("DoodCore", "&aMySQL link established!");
+                DoodLog.log("DoodCore", "&7However, no support for MySQL or SQLite has been added yet!");
+                usingMySQL = true;
+            } catch (Exception ex) {
+                DoodLog.printError("DoodCore", "Unhandled exception connecting to MySQL database!", ex);
+                DoodLog.log("DoodCore", "&cMySQL link failed! :(");
+                usingMySQL = false;
+            }
+        } else {
+            // SQLite
+            DoodLog.log("DoodCore", "&cMySQL is disabled, however SQLite is not added/supported yet.");
+            usingMySQL = false;
+        }
     }
 
     public void cleanUp() {
+        // SQL
+        if (usingMySQL) {
+            try {
+                if (mySql.checkConnection()) {
+                    DoodLog.log("DoodCore", "&aMySQL link closed!");
+                    mySql.closeConnection();
+                }
+            } catch (SQLException ex) {
+                DoodLog.printError("DoodCore", "Unhandled exception closing MySQL connection!", ex);
+            }
+        }
 
+        // TASKS
+        for (int task : tasks) {
+            try {
+                Bukkit.getScheduler().cancelTask(task);
+                DoodLog.log("DoodCore", "Stopped task [" + task + "]");
+            } catch (Exception ex) {
+                DoodLog.printError("DoodCore", "Error stopping task " + task + "! (Already stopped?)", ex);
+            }
+        }
     }
 }
