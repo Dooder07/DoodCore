@@ -39,10 +39,16 @@ import org.bukkit.event.Listener;
  */
 public class TabMenu implements Listener {
 
-    public static void startRefresh() {
-        int task = Bukkit.getScheduler().scheduleSyncRepeatingTask(DoodCorePlugin.plugin, TabMenu::updateTabList, 1L, 100L);
+    public static int refreshTask = -1;
 
-        DoodCorePlugin.tasks.add(task);
+    public static void startRefresh() {
+        refreshTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(DoodCorePlugin.plugin, TabMenu::updateTabList, 1L, 100L);
+    }
+
+    public static void stopRefresh() {
+        if (refreshTask != -1) {
+            Bukkit.getScheduler().cancelTask(refreshTask);
+        }
     }
 
     @SuppressWarnings("ConstantConditions")

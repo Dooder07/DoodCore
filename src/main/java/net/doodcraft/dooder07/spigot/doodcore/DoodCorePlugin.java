@@ -60,7 +60,6 @@ public class DoodCorePlugin extends JavaPlugin {
 
         Settings.setupDefaults();
         Compatibility.checkHooks();
-        TabMenu.startRefresh();
 
         initialize();
         registerListeners();
@@ -106,6 +105,7 @@ public class DoodCorePlugin extends JavaPlugin {
 
         // FEATURES
         TimeRewards.addAllPlayers();
+        TabMenu.startRefresh();
     }
 
     public static void cleanUp() {
@@ -121,18 +121,9 @@ public class DoodCorePlugin extends JavaPlugin {
             }
         }
 
-        // TASKS
-        for (int task : tasks) {
-            try {
-                Bukkit.getScheduler().cancelTask(task);
-                DoodLog.log("DoodCore", "Stopped task [" + task + "]");
-            } catch (Exception ex) {
-                DoodLog.printError("DoodCore", "Error stopping task " + task + "! (Already stopped?)", ex);
-            }
-        }
-
         // FEATURES
         TimeRewards.removeAllPlayers();
+        TabMenu.stopRefresh();
     }
 
     public void registerListeners() {
