@@ -41,13 +41,13 @@ public class Core implements CommandExecutor {
 
             if (args.length == 0) {
 
-                FancyMessage msg = new FancyMessage(StringParser.addColor("&6&l&oKore&7 v" + DoodCorePlugin.plugin.getDescription().getVersion()));
+                FancyMessage msg = new FancyMessage(StringParser.addColor("&6&l&oCore&7 v" + DoodCorePlugin.plugin.getDescription().getVersion()));
                 msg.tooltip(StringParser.addColor("&8Author: &6Dooder07\n&dFor DreadCraft &5<3"));
 
                 if (sender instanceof Player) {
                     Methods.sendFancyMessage((Player) sender, msg);
                 } else {
-                    DoodLog.log("DoodCore", StringParser.addColor("&6&l&oKore&7 v" + DoodCorePlugin.plugin.getDescription().getVersion() + "\n&8Author: &6Dooder07\n&8Website: &bhttp://doodcraft.net/"));
+                    DoodLog.log("DoodCore", StringParser.addColor("&6&l&oCore&7 v" + DoodCorePlugin.plugin.getDescription().getVersion() + "\n&8Author: &6Dooder07\n&8Website: &bhttp://doodcraft.net/"));
                 }
 
                 if (sender.hasPermission("core.command.reload") || sender.getName().equals(Settings.developerName)) {

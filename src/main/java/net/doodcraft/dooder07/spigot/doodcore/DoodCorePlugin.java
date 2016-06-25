@@ -1,9 +1,6 @@
 package net.doodcraft.dooder07.spigot.doodcore;
 
-import net.doodcraft.dooder07.spigot.doodcore.commands.Compel;
-import net.doodcraft.dooder07.spigot.doodcore.commands.Core;
-import net.doodcraft.dooder07.spigot.doodcore.commands.Relore;
-import net.doodcraft.dooder07.spigot.doodcore.commands.Rename;
+import net.doodcraft.dooder07.spigot.doodcore.commands.*;
 import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
 import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import net.doodcraft.dooder07.spigot.doodcore.features.PlayerWelcome;
@@ -143,5 +140,6 @@ public class DoodCorePlugin extends JavaPlugin {
         getCommand("compel").setExecutor(new Compel());
         getCommand("rename").setExecutor(new Rename());
         getCommand("relore").setExecutor(new Relore());
+        getCommand("search").setExecutor(new Search());
     }
 }

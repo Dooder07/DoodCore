@@ -14,6 +14,8 @@ commands:
     description: Rename the item in your main hand
   relore:
     description: Relore the item in your main hand
+  command:
+    description: Search nearby for items or entities
 permissions:
   doodcore.admin:
     description: Parent node for administrators
@@ -29,4 +31,7 @@ permissions:
     default: OP
   doodcore.command.relore:
     description: Allows /relore
+    default: OP
+  doodcore.command.search:
+    description: Allows /search
     default: OP
