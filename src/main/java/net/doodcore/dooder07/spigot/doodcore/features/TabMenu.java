@@ -6,7 +6,7 @@ import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import net.doodcore.dooder07.spigot.doodcore.DoodCorePlugin;
 import net.doodcore.dooder07.spigot.doodcore.StringParser;
 import net.doodcore.dooder07.spigot.doodcore.compat.Compatibility;
-import net.doodcore.dooder07.spigot.doodcore.compat.ProtocolLib;
+import net.doodcore.dooder07.spigot.doodcore.compat.Protocollib;
 import net.doodcore.dooder07.spigot.doodcore.config.Settings;
 import net.minecraft.server.v1_10_R1.EntityPlayer;
 import org.bukkit.Bukkit;
@@ -50,11 +50,11 @@ public class TabMenu implements Listener {
         if (Compatibility.hooked.get("ProtocolLib") != null) {
             if (Bukkit.getOnlinePlayers().size() >= 1) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    PacketContainer packet = ProtocolLib.getManager().createPacket(PacketType.Play.Server.PLAYER_LIST_HEADER_FOOTER);
+                    PacketContainer packet = Protocollib.getManager().createPacket(PacketType.Play.Server.PLAYER_LIST_HEADER_FOOTER);
                     packet.getChatComponents().write(0, WrappedChatComponent.fromText(StringParser.addColor("&7&n" + Settings.serverName))).write(1, WrappedChatComponent.fromText(StringParser.addColor("&f" + getPing(p) + "ms")));
 
                     try {
-                        ProtocolLib.getManager().sendServerPacket(p, packet);
+                        Protocollib.getManager().sendServerPacket(p, packet);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
