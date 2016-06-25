@@ -1,10 +1,10 @@
-package net.doodcore.dooder07.spigot.doodcore.features;
+package net.doodcraft.dooder07.spigot.doodcore.features;
 
-import net.doodcore.dooder07.spigot.doodcore.DoodCorePlugin;
-import net.doodcore.dooder07.spigot.doodcore.StringParser;
-import net.doodcore.dooder07.spigot.doodcore.compat.Compatibility;
-import net.doodcore.dooder07.spigot.doodcore.compat.Vault;
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin;
+import net.doodcraft.dooder07.spigot.doodcore.StringParser;
+import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
+import net.doodcraft.dooder07.spigot.doodcore.compat.Vault;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

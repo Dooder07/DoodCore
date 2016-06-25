@@ -1,11 +1,16 @@
-package net.doodcore.dooder07.spigot.doodcore;
+package net.doodcraft.dooder07.spigot.doodcore.sql;
 
-import org.bukkit.ChatColor;
+import net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin;
+import net.doodcraft.dooder07.spigot.doodcore.DoodLog;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * The MIT License (MIT)
  * -
- * Copyright (c) 2016 Conor O'Shields
+ * Copyright (c) {YEAR} Conor O'Shields
  * -
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,12 +30,22 @@ import org.bukkit.ChatColor;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-public class StringParser {
-    public static String addColor(String message) {
-        return ChatColor.translateAlternateColorCodes('&', message);
-    }
+public class SqlHandler {
+    public static String query(String key, String keyValue, String field) {
+        try {
+            Statement statement = DoodCorePlugin.connection.createStatement();
 
-    public static String removeColor(String message) {
-        return ChatColor.stripColor(message);
+            ResultSet set = statement.executeQuery("SELECT * FROM " + Settings.mySQLDatabase + " WHERE " + key + " = '" + keyValue + "';");
+            set.next();
+
+            if (set.getString(key) == null) {
+                return null;
+            } else {
+                return set.getString(field);
+            }
+        } catch (Exception ex) {
+            DoodLog.log("DoodCore", "Unhandled SQL exception in SqlHandler.query()");
+            return null;
+        }
     }
 }

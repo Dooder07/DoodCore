@@ -1,4 +1,4 @@
-package net.doodcore.dooder07.spigot.doodcore.compat;
+package net.doodcraft.dooder07.spigot.doodcore.compat;
 
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;

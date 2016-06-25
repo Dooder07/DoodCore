@@ -1,10 +1,8 @@
-package net.doodcore.dooder07.spigot.doodcore.commands;
+package net.doodcraft.dooder07.spigot.doodcore.commands;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
-import net.doodcore.dooder07.spigot.doodcore.Methods;
-import net.doodcore.dooder07.spigot.doodcore.StringParser;
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.spigot.doodcore.Methods;
+import net.doodcraft.dooder07.spigot.doodcore.StringParser;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.List;
 
 /**
  * The MIT License (MIT)
@@ -38,43 +34,39 @@ import java.util.List;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-public class Relore implements CommandExecutor {
+public class Rename implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = null;
 
         if (sender instanceof Player) {
             player = (Player) sender;
         } else {
-            sender.sendMessage(StringParser.addColor("&cConsole cannot relore items."));
+            sender.sendMessage(StringParser.addColor("&cConsole cannot rename items."));
         }
 
         if (player != null) {
-            if (command.getName().equalsIgnoreCase("relore")) {
-                if (player.hasPermission("core.command.relore") || player.getName().equals(Settings.developerName)) {
+            if (command.getName().equalsIgnoreCase("rename")) {
+                if (player.hasPermission("core.command.rename") || player.getName().equals(Settings.developerName)) {
 
                     if (args.length == 0) {
-                        player.sendMessage(StringParser.addColor("&7Usage: &b/relore &fSome fancy item &olore&f!\\n&aThis is a another line!"));
+                        player.sendMessage(StringParser.addColor("&7Usage: &b/rename Fancy new item name!"));
                     } else {
-                        ItemStack item = player.getItemInHand();
+                        ItemStack item = player.getInventory().getItemInMainHand();
+
                         ItemMeta meta = item.getItemMeta();
+                        String name = StringUtils.join(args, " ");
 
-                        String arguments = StringParser.addColor(StringUtils.join(args, " "));
-
-                        List<String> lore = Lists.newArrayList(Splitter.on("\\n").trimResults().split(arguments));
-                        meta.setLore(lore);
-
+                        meta.setDisplayName(StringParser.addColor("&r" + name));
                         item.setItemMeta(meta);
 
-                        player.sendMessage(StringParser.addColor("&7Item relored:"));
-                        for (String line : lore) {
-                            player.sendMessage(StringParser.addColor("&5&o" + line));
-                        }
+                        player.sendMessage(StringParser.addColor("&7Item renamed: &r" + name));
                     }
                 } else {
-                    Methods.sendNoPermission(player, "core.command.relore");
+                    Methods.sendNoPermission(player, "core.command.rename");
                 }
             }
         }
+
         return false;
     }
 }

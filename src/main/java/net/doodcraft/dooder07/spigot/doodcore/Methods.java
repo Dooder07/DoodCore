@@ -1,7 +1,8 @@
-package net.doodcore.dooder07.spigot.doodcore.compat;
+package net.doodcraft.dooder07.spigot.doodcore;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
+import mkremins.fanciful.FancyMessage;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
+import org.bukkit.entity.Player;
 
 /**
  * The MIT License (MIT)
@@ -26,12 +27,9 @@ import com.comphenix.protocol.ProtocolManager;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-public class Protocollib {
-    public static ProtocolManager getManager() {
-        if (Compatibility.hooked.get("ProtocolLib") != null) {
-            return ProtocolLibrary.getProtocolManager();
-        } else {
-            return null;
-        }
+public class Methods {
+    public static void sendNoPermission(Player player, String node) {
+        FancyMessage message = new FancyMessage(StringParser.addColor(Settings.pluginPrefix + " &cNo permission")).tooltip(StringParser.addColor("&b" + node));
+        message.send(player);
     }
 }

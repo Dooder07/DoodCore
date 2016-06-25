@@ -1,6 +1,6 @@
-package net.doodcore.dooder07.spigot.doodcore.config;
+package net.doodcraft.dooder07.spigot.doodcore.config;
 
-import net.doodcore.dooder07.spigot.doodcore.DoodLog;
+import net.doodcraft.dooder07.spigot.doodcore.DoodLog;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.file.YamlConfigurationOptions;
 

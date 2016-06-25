@@ -1,6 +1,6 @@
-package net.doodcore.dooder07.spigot.doodcore.config;
+package net.doodcraft.dooder07.spigot.doodcore.config;
 
-import net.doodcore.dooder07.spigot.doodcore.DoodCorePlugin;
+import net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin;
 import org.bukkit.Bukkit;
 
 import java.io.File;

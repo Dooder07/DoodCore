@@ -1,4 +1,4 @@
-package net.doodcore.dooder07.spigot.doodcore.sql;
+package net.doodcraft.dooder07.spigot.doodcore.sql;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

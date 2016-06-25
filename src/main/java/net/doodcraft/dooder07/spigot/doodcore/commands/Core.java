@@ -1,11 +1,11 @@
-package net.doodcore.dooder07.spigot.doodcore.commands;
+package net.doodcraft.dooder07.spigot.doodcore.commands;
 
 import mkremins.fanciful.FancyMessage;
-import net.doodcore.dooder07.spigot.doodcore.DoodCorePlugin;
-import net.doodcore.dooder07.spigot.doodcore.DoodLog;
-import net.doodcore.dooder07.spigot.doodcore.Methods;
-import net.doodcore.dooder07.spigot.doodcore.StringParser;
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin;
+import net.doodcraft.dooder07.spigot.doodcore.DoodLog;
+import net.doodcraft.dooder07.spigot.doodcore.Methods;
+import net.doodcraft.dooder07.spigot.doodcore.StringParser;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

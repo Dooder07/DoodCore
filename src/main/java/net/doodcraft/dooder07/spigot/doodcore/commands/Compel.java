@@ -1,8 +1,8 @@
-package net.doodcore.dooder07.spigot.doodcore.commands;
+package net.doodcraft.dooder07.spigot.doodcore.commands;
 
-import net.doodcore.dooder07.spigot.doodcore.Methods;
-import net.doodcore.dooder07.spigot.doodcore.StringParser;
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.spigot.doodcore.Methods;
+import net.doodcraft.dooder07.spigot.doodcore.StringParser;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

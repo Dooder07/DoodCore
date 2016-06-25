@@ -1,6 +1,6 @@
-package net.doodcore.dooder07.spigot.doodcore;
+package net.doodcraft.dooder07.spigot.doodcore;
 
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;

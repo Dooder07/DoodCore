@@ -1,6 +1,6 @@
-package net.doodcore.dooder07.spigot.doodcore.sql.mysql;
+package net.doodcraft.dooder07.spigot.doodcore.sql.mysql;
 
-import net.doodcore.dooder07.spigot.doodcore.sql.Database;
+import net.doodcraft.dooder07.spigot.doodcore.sql.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

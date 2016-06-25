@@ -1,6 +1,6 @@
-package net.doodcore.dooder07.spigot.doodcore.sql.sqlite;
+package net.doodcraft.dooder07.spigot.doodcore.sql.sqlite;
 
-import net.doodcore.dooder07.spigot.doodcore.sql.Database;
+import net.doodcraft.dooder07.spigot.doodcore.sql.Database;
 
 import java.io.File;
 import java.io.IOException;

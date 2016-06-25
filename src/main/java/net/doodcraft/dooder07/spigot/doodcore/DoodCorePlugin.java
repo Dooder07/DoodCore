@@ -1,15 +1,15 @@
-package net.doodcore.dooder07.spigot.doodcore;
+package net.doodcraft.dooder07.spigot.doodcore;
 
-import net.doodcore.dooder07.spigot.doodcore.commands.Compel;
-import net.doodcore.dooder07.spigot.doodcore.commands.Core;
-import net.doodcore.dooder07.spigot.doodcore.commands.Relore;
-import net.doodcore.dooder07.spigot.doodcore.commands.Rename;
-import net.doodcore.dooder07.spigot.doodcore.compat.Compatibility;
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
-import net.doodcore.dooder07.spigot.doodcore.features.PlayerWelcome;
-import net.doodcore.dooder07.spigot.doodcore.features.TabMenu;
-import net.doodcore.dooder07.spigot.doodcore.features.TimeRewards;
-import net.doodcore.dooder07.spigot.doodcore.sql.mysql.MySQL;
+import net.doodcraft.dooder07.spigot.doodcore.commands.Compel;
+import net.doodcraft.dooder07.spigot.doodcore.commands.Core;
+import net.doodcraft.dooder07.spigot.doodcore.commands.Relore;
+import net.doodcraft.dooder07.spigot.doodcore.commands.Rename;
+import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.spigot.doodcore.features.PlayerWelcome;
+import net.doodcraft.dooder07.spigot.doodcore.features.TabMenu;
+import net.doodcraft.dooder07.spigot.doodcore.features.TimeRewards;
+import net.doodcraft.dooder07.spigot.doodcore.sql.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;

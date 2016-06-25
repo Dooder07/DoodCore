@@ -1,6 +1,6 @@
-package net.doodcore.dooder07.spigot.doodcore.compat;
+package net.doodcraft.dooder07.spigot.doodcore.compat;
 
-import net.doodcore.dooder07.spigot.doodcore.DoodLog;
+import net.doodcraft.dooder07.spigot.doodcore.DoodLog;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

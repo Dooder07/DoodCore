@@ -1,14 +1,14 @@
-package net.doodcore.dooder07.spigot.doodcore.features;
+package net.doodcraft.dooder07.spigot.doodcore.features;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
-import net.doodcore.dooder07.spigot.doodcore.DoodCorePlugin;
-import net.doodcore.dooder07.spigot.doodcore.DoodLog;
-import net.doodcore.dooder07.spigot.doodcore.StringParser;
-import net.doodcore.dooder07.spigot.doodcore.compat.Compatibility;
-import net.doodcore.dooder07.spigot.doodcore.compat.Vault;
-import net.doodcore.dooder07.spigot.doodcore.config.Configuration;
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin;
+import net.doodcraft.dooder07.spigot.doodcore.DoodLog;
+import net.doodcraft.dooder07.spigot.doodcore.StringParser;
+import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
+import net.doodcraft.dooder07.spigot.doodcore.compat.Vault;
+import net.doodcraft.dooder07.spigot.doodcore.config.Configuration;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -196,10 +196,10 @@ public class TimeRewards implements Listener {
     }
 
     public static void addAllPlayers() {
-        Bukkit.getOnlinePlayers().forEach(net.doodcore.dooder07.spigot.doodcore.features.TimeRewards::addPayee);
+        Bukkit.getOnlinePlayers().forEach(TimeRewards::addPayee);
     }
 
     public static void removeAllPlayers() {
-        Bukkit.getOnlinePlayers().forEach(net.doodcore.dooder07.spigot.doodcore.features.TimeRewards::removePayee);
+        Bukkit.getOnlinePlayers().forEach(TimeRewards::removePayee);
     }
 }

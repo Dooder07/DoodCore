@@ -1,16 +1,12 @@
-package net.doodcore.dooder07.spigot.doodcore.sql;
+package net.doodcraft.dooder07.spigot.doodcore.compat;
 
-import net.doodcore.dooder07.spigot.doodcore.DoodCorePlugin;
-import net.doodcore.dooder07.spigot.doodcore.DoodLog;
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
-
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 
 /**
  * The MIT License (MIT)
  * -
- * Copyright (c) {YEAR} Conor O'Shields
+ * Copyright (c) 2016 Conor O'Shields
  * -
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,21 +26,11 @@ import java.sql.Statement;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-public class SqlHandler {
-    public static String query(String key, String keyValue, String field) {
-        try {
-            Statement statement = DoodCorePlugin.connection.createStatement();
-
-            ResultSet set = statement.executeQuery("SELECT * FROM " + Settings.mySQLDatabase + " WHERE " + key + " = '" + keyValue + "';");
-            set.next();
-
-            if (set.getString(key) == null) {
-                return null;
-            } else {
-                return set.getString(field);
-            }
-        } catch (Exception ex) {
-            DoodLog.log("DoodCore", "Unhandled SQL exception in SqlHandler.query()");
+public class Protocollib {
+    public static ProtocolManager getManager() {
+        if (Compatibility.hooked.get("ProtocolLib") != null) {
+            return ProtocolLibrary.getProtocolManager();
+        } else {
             return null;
         }
     }

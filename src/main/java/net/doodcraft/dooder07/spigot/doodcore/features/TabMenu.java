@@ -1,13 +1,13 @@
-package net.doodcore.dooder07.spigot.doodcore.features;
+package net.doodcraft.dooder07.spigot.doodcore.features;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import net.doodcore.dooder07.spigot.doodcore.DoodCorePlugin;
-import net.doodcore.dooder07.spigot.doodcore.StringParser;
-import net.doodcore.dooder07.spigot.doodcore.compat.Compatibility;
-import net.doodcore.dooder07.spigot.doodcore.compat.Protocollib;
-import net.doodcore.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin;
+import net.doodcraft.dooder07.spigot.doodcore.StringParser;
+import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
+import net.doodcraft.dooder07.spigot.doodcore.compat.Protocollib;
+import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import net.minecraft.server.v1_10_R1.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
