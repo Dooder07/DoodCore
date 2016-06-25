@@ -81,11 +81,12 @@ public class Search implements CommandExecutor {
                                 ArrayList<Entity> mobs = new ArrayList<>();
                                 HashMap<Block, ItemStack> chests = new HashMap<>();
 
-                                for (int x = -radius + chunkX; x < radius + chunkX; ++x)
-                                    for (int z = -radius + chunkZ; z < radius + chunkZ; ++z) {
+                                for (int x = (chunkX - radius); x < (chunkX + radius); x++) {
+                                    for (int z = (chunkZ - radius); z < (chunkZ + radius); z++) {
                                         Chunk c = player.getWorld().getChunkAt(x, z);
                                         chunks.add(c);
                                     }
+                                }
 
                                 for (Chunk c : chunks) {
                                     for (Entity e : c.getEntities()) {
