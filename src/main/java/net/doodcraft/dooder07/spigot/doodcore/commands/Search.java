@@ -70,24 +70,28 @@ public class Search implements CommandExecutor {
 
                                 player.sendMessage(StringParser.addColor("&a&oScanning..."));
 
-                                int radius = Integer.valueOf(args[0]);
                                 String string = String.valueOf(args[1].replaceAll("_", " "));
 
-                                ArrayList<Chunk> chunks = new ArrayList<>();
-                                Chunk chunk = player.getLocation().getChunk();
-                                int chunkX = chunk.getX() + 1;
-                                int chunkZ = chunk.getZ() + 1;
-
                                 ArrayList<Entity> mobs = new ArrayList<>();
+
                                 HashMap<Block, ItemStack> chests = new HashMap<>();
 
-                                if (radius == 0) {
-                                    chunks.add(chunk);
-                                } else {
-                                    for (int x = (chunkX - radius); x < (chunkX + radius); x++) {
-                                        for (int z = (chunkZ - radius); z < (chunkZ + radius); z++) {
-                                            Chunk c = player.getWorld().getChunkAt(x, z);
-                                            chunks.add(c);
+                                ArrayList<Chunk> chunks = new ArrayList<>();
+
+                                Chunk chunk = player.getLocation().getChunk();
+
+                                int radius = Integer.valueOf(args[0]) + 1;
+                                int chunkX = chunk.getX();
+                                int chunkZ = chunk.getZ();
+
+                                for (int x = radius; x >= 0; x--) {
+                                    for (int z = radius; z >= 0; z--) {
+
+                                        if (!chunks.contains(player.getWorld().getChunkAt(chunkX + x, chunkZ + z))) {
+                                            chunks.add(player.getWorld().getChunkAt(chunkX + x, chunkZ + z));
+                                        }
+                                        if (!chunks.contains(player.getWorld().getChunkAt(chunkX - x, chunkZ - z))) {
+                                            chunks.add(player.getWorld().getChunkAt(chunkX - x, chunkZ - z));
                                         }
                                     }
                                 }

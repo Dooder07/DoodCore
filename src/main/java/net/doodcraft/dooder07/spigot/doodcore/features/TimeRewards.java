@@ -182,7 +182,7 @@ public class TimeRewards implements Listener {
 
             int today = earnedToday + Settings.timeRewardsAmount;
 
-            String message = Settings.pluginPrefix + " Thanks for playing at Dreadcraft! &a+$50 [&e$<today>&r/&6$<max>&r]";
+            String message = Settings.pluginPrefix + " &7Thanks for playing at " + Settings.serverName + "&7! [&e$<today>&7/&6$<max>&7]";
             message = message.replaceAll("<amount>", String.valueOf(Settings.timeRewardsAmount));
             message = message.replaceAll("<today>", String.valueOf(today));
             message = message.replaceAll("<max>", String.valueOf(Settings.timeRewardsMax));

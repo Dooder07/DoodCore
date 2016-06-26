@@ -91,11 +91,9 @@ public class PlayerWelcome implements Listener {
 
                         if (rewarded.get(player.getName()) != null && rewarded.get(player.getName()).equals(name)) {
 
-                            player.sendMessage(StringParser.addColor(Settings.pluginPrefix + "&cYou've already greeted " + p.getDisplayName() + "&c!"));
+                            player.sendMessage(StringParser.addColor(Settings.pluginPrefix + " &cYou've already greeted " + p.getDisplayName() + "&c!"));
 
                         } else {
-
-                            player.sendMessage(StringParser.addColor(Settings.pluginPrefix + "&aThank you for welcoming " + p.getDisplayName() + "&a to " + Settings.serverName + "!"));
 
                             giveReward(player, p);
 
@@ -120,14 +118,14 @@ public class PlayerWelcome implements Listener {
     public void giveReward(Player greeter, Player greeted) {
 
         if (Compatibility.isHooked("Vault")) {
-            greeter.sendMessage(StringParser.addColor(Settings.pluginPrefix + "&aBoth of you earned a bonus &6$10&a!"));
+            greeter.sendMessage(StringParser.addColor(Settings.pluginPrefix + " &aThank you for greeting " + greeted.getDisplayName() + "! You both earned a bonus &6$10&a!"));
 
             Economy econ = Vault.economy;
 
             econ.depositPlayer(greeter, 10);
             econ.depositPlayer(greeted, 10);
         } else {
-            greeter.sendMessage(StringParser.addColor(Settings.pluginPrefix + "&cThere was an error! Let an admin know!"));
+            greeter.sendMessage(StringParser.addColor(Settings.pluginPrefix + " &cThere was an error! Let an admin know!"));
         }
     }
 }
