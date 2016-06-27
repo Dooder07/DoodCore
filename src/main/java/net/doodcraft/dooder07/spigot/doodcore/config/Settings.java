@@ -69,6 +69,7 @@ public class Settings {
     // LOCALE
     public static String serverName;
     public static String pluginPrefix;
+    public static String timeRewardMessage;
 
     public static void setupDefaults() {
         // CONFIG
@@ -138,6 +139,7 @@ public class Settings {
         // LOCALE
         serverName = Bukkit.getServerName();
         pluginPrefix = "&e[&6DoodCore&e]&r";
+        timeRewardMessage = "&aHere's &2$<amount> - &ajust for playing!";
 
         // BUILD THE DEFAULT CONFIGS
         Configuration config = new Configuration(DoodCorePlugin.plugin.getDataFolder() + File.separator + "config.yml");
@@ -182,6 +184,7 @@ public class Settings {
         //      LOCALE
         locale.add("Server.Name", serverName);
         locale.add("Server.PluginPrefix", pluginPrefix);
+        locale.add("TimeRewards.Rewarded", timeRewardMessage);
 
         config.save();
         locale.save();
@@ -226,6 +229,7 @@ public class Settings {
     public static void setNewLocaleValues(Configuration locale) {
         serverName = locale.getString("Server.Name");
         pluginPrefix = locale.getString("Server.PluginPrefix");
+        timeRewardMessage = locale.getString("TimeRewards.Rewarded");
     }
 
     public static void reload() {

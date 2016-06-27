@@ -1,6 +1,8 @@
 package net.doodcraft.dooder07.spigot.doodcore.features;
 
+import mkremins.fanciful.FancyMessage;
 import net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin;
+import net.doodcraft.dooder07.spigot.doodcore.Methods;
 import net.doodcraft.dooder07.spigot.doodcore.StringParser;
 import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
 import net.doodcraft.dooder07.spigot.doodcore.compat.Vault;
@@ -43,8 +45,8 @@ import java.util.List;
 public class PlayerWelcome implements Listener {
 
     public static List<String> greetable = new ArrayList<>();
-
     public static HashMap<String, String> rewarded = new HashMap<>();
+    public static HashMap<String, Integer> amountGiven = new HashMap<>();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
@@ -112,18 +114,39 @@ public class PlayerWelcome implements Listener {
             if (greetable.contains(player.getName())) {
                 greetable.remove(player.getName());
             }
+
+            if (player.isOnline()) {
+                if (amountGiven.containsKey(player.getName())) {
+                    FancyMessage msg = new FancyMessage(StringParser.addColor("&aWelcome to &2Dreadcraft&a! Here's &6$" + amountGiven.get(player.getName()) + " &ato get you started!"));
+                    msg.command("/bal");
+                    Methods.sendFancyMessage(player, msg);
+                } else {
+                    FancyMessage msg = new FancyMessage(StringParser.addColor("&aWelcome to &2Dreadcraft&a! Enjoy your time here! :)"));
+                    Methods.sendFancyMessage(player, msg);
+                }
+            }
         }, 1200L);
     }
 
     public void giveReward(Player greeter, Player greeted) {
-
         if (Compatibility.isHooked("Vault")) {
-            greeter.sendMessage(StringParser.addColor(Settings.pluginPrefix + " &aThank you for greeting " + greeted.getDisplayName() + "! You both earned a bonus &6$10&a!"));
+            FancyMessage msg = new FancyMessage(StringParser.addColor(Settings.pluginPrefix + " &aThanks for welcoming " + greeted.getDisplayName() + " &ato &2" + Settings.serverName +  "&a!"));
+            msg.tooltip(StringParser.addColor("&eYou both earned &6$10&e!"));
+
+            Methods.sendFancyMessage(greeter, msg);
 
             Economy econ = Vault.economy;
 
             econ.depositPlayer(greeter, 10);
             econ.depositPlayer(greeted, 10);
+
+            if (amountGiven.containsKey(greeted.getName())) {
+                int add = amountGiven.get(greeted.getName()) + 10;
+                amountGiven.remove(greeted.getName());
+                amountGiven.put(greeted.getName(), add);
+            } else {
+                amountGiven.put(greeted.getName(), 10);
+            }
         } else {
             greeter.sendMessage(StringParser.addColor(Settings.pluginPrefix + " &cThere was an error! Let an admin know!"));
         }

@@ -110,17 +110,14 @@ public class SkeletonHorses implements Listener {
                 if (var.equals(Horse.Variant.SKELETON_HORSE)) {
 
                     if (horse.getCustomName() != null) {
-                        DoodLog.debug("NAMED HORSE: [&b" + horse.getCustomName() + "&7] " + "was NOT removed.");
                         return;
                     }
 
                     if (horse.getInventory().getSaddle() != null) {
-                        DoodLog.debug("SADDLED HORSE: [&b" + horse.getCustomName() + "&7] " + "was NOT removed.");
                         return;
                     }
 
                     horse.remove();
-                    DoodLog.debug("UNNAMED HORSE: [&b" + horse.getCustomName() + "&7] " + "was removed.");
                 }
             }
         }

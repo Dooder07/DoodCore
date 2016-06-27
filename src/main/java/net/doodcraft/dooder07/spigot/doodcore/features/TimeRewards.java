@@ -2,8 +2,10 @@ package net.doodcraft.dooder07.spigot.doodcore.features;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
+import mkremins.fanciful.FancyMessage;
 import net.doodcraft.dooder07.spigot.doodcore.DoodCorePlugin;
 import net.doodcraft.dooder07.spigot.doodcore.DoodLog;
+import net.doodcraft.dooder07.spigot.doodcore.Methods;
 import net.doodcraft.dooder07.spigot.doodcore.StringParser;
 import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
 import net.doodcraft.dooder07.spigot.doodcore.compat.Vault;
@@ -182,12 +184,10 @@ public class TimeRewards implements Listener {
 
             int today = earnedToday + Settings.timeRewardsAmount;
 
-            String message = Settings.pluginPrefix + " &7Thanks for playing at " + Settings.serverName + "&7! [&e$<today>&7/&6$<max>&7]";
-            message = message.replaceAll("<amount>", String.valueOf(Settings.timeRewardsAmount));
-            message = message.replaceAll("<today>", String.valueOf(today));
-            message = message.replaceAll("<max>", String.valueOf(Settings.timeRewardsMax));
+            FancyMessage msg = new FancyMessage(StringParser.addColor(Settings.pluginPrefix + " " + Settings.timeRewardMessage.replaceAll("<amount>", String.valueOf(Settings.timeRewardsAmount))));
+            msg.tooltip(StringParser.addColor("&8[&b$<today>&8/&9$<max>&8]".replaceAll("<today>", String.valueOf(today)).replaceAll("<max>", String.valueOf(Settings.timeRewardsMax))));
 
-            player.sendMessage(StringParser.addColor(message));
+            Methods.sendFancyMessage(player, msg);
         } else {
             player.sendMessage(StringParser.addColor("&cThere was an error with TimeRewards! Tell an admin!"));
         }
