@@ -42,7 +42,7 @@ public class TabMenu implements Listener {
     public static int refreshTask = -1;
 
     public static void startRefresh() {
-        refreshTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(DoodCorePlugin.plugin, TabMenu::updateTabList, 1L, 100L);
+        refreshTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(DoodCorePlugin.plugin, TabMenu::updateTabList, 1L, 80L);
     }
 
     public static void stopRefresh() {

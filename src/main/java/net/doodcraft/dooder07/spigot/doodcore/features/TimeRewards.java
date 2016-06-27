@@ -49,6 +49,7 @@ import java.util.UUID;
  * SOFTWARE.
  */
 public class TimeRewards implements Listener {
+
     public static HashMap<UUID, Integer> earningTasks = new HashMap<>();
 
     public static Configuration getConfig(String name) {
@@ -71,12 +72,9 @@ public class TimeRewards implements Listener {
         Date date = new Date();
 
         if (!config.contains("LastReward")) {
-            DoodLog.debug("Adding new rewards file for " + player.getName());
-
             config.add("Earned.Today", "0");
             config.add("Earned.AllTime", "0");
             config.add("LastReward", dateFormat.format(date));
-
             config.save();
         }
 
@@ -86,7 +84,6 @@ public class TimeRewards implements Listener {
             boolean newDay = compareDates(dateFormat.format(date), lastReward);
 
             if (newDay) {
-                DoodLog.debug("It's a new day for " + player.getName() + "! Resetting EarnedToday and Adding them to payee list.");
                 config.set("Earned.Today", 0);
                 config.set("LastReward", dateFormat.format(date));
                 config.save();
@@ -94,14 +91,9 @@ public class TimeRewards implements Listener {
                 return;
             }
 
-            if (earnedToday >= Settings.timeRewardsMax) {
-                DoodLog.debug(player.getName() + " earned " + earnedToday + " today. Not adding them to payee list.");
-            } else {
-                DoodLog.debug(player.getName() + " earned " + earnedToday + " so far today. Adding them to payee list.");
+            if (earnedToday < Settings.timeRewardsMax) {
                 startPayout(player);
             }
-        } else {
-            DoodLog.debug(player.getName() + " is already earning rewards. Skipping.");
         }
     }
 
@@ -120,7 +112,6 @@ public class TimeRewards implements Listener {
             boolean newDay = compareDates(dateFormat.format(date), lastReward);
 
             if (Bukkit.getPlayer(player.getUniqueId()) == null) {
-                DoodLog.debug(player.getName() + " did not earn money because they are offline. Stopping task.");
                 removePayee(player);
             } else {
                 if (Compatibility.isHooked("Essentials")) {
@@ -128,36 +119,29 @@ public class TimeRewards implements Listener {
                     User p = ess.getUser(player);
 
                     if (p.isAfk()) {
-                        player.sendMessage(StringParser.addColor("&cYou did not earn money because you were afk."));
-                        DoodLog.debug(player.getName() + " did not earn money because they were afk.");
+                        player.sendMessage(StringParser.addColor("&cYou did not earn money because you were marked afk."));
                         return;
                     }
                 }
 
                 if (earnedToday >= Settings.timeRewardsMax) {
                     if (newDay) {
-                        DoodLog.debug("It's a new day for " + player.getName() + "! Resetting EarnedToday total.");
                         config.set("Earned.Today", 0);
                         config.set("LastReward", dateFormat.format(date));
                         config.save();
                         pay(player);
-                    } else {
-                        DoodLog.debug(player.getName() + " did not earn money because they are at the max payout today.");
                     }
                 } else {
-                    DoodLog.debug(player.getName() + " earned $" + Settings.timeRewardsAmount + " for playing.");
                     pay(player);
                 }
             }
         }, Settings.timeRewardsInterval, Settings.timeRewardsInterval);
 
-        DoodLog.debug("Starting new payout task for " + player.getName() + " with ID: " + taskId);
         earningTasks.put(player.getUniqueId(), taskId);
     }
 
     public static void stopPayout(Player player) {
         if (earningTasks.containsKey(player.getUniqueId())) {
-            DoodLog.debug("Stopping payout task for " + player.getName() + " with ID: " + earningTasks.get(player.getUniqueId()));
             Bukkit.getScheduler().cancelTask(earningTasks.get(player.getUniqueId()));
             earningTasks.remove(player.getUniqueId());
         }

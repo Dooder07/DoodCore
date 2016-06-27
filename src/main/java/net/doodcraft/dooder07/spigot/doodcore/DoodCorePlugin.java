@@ -103,6 +103,7 @@ public class DoodCorePlugin extends JavaPlugin {
         TimeRewards.addAllPlayers();
         PasswordBruteForce.addAllPlayers();
         TabMenu.startRefresh();
+        NewbieProtection.addAllPlayers();
     }
 
     public static void cleanUp() {
@@ -136,6 +137,7 @@ public class DoodCorePlugin extends JavaPlugin {
         registerEvents(plugin, new PotionBlocking());
         registerEvents(plugin, new SkeletonHorses());
         registerEvents(plugin, new StickDrops());
+        registerEvents(plugin, new PvPManager());
     }
 
     public static void registerEvents(Plugin plugin, Listener... listeners) {

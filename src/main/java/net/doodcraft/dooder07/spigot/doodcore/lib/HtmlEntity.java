@@ -1,6 +1,5 @@
 package net.doodcraft.dooder07.spigot.doodcore.lib;
 
-
 /**
  * HtmlEntity<br/><br/>
  *

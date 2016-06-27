@@ -65,7 +65,6 @@ public class SkeletonHorses implements Listener {
                         // CHECK TOWN
                         if (Compatibility.isHooked("Towny")) {
                             if (!TownyUniverse.isWilderness(block)) {
-
                                 DoodLog.debug("Blocking skeleton horse spawn inside town at [" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + "]");
                                 event.setCancelled(true);
                                 return;
@@ -74,7 +73,6 @@ public class SkeletonHorses implements Listener {
 
                         // CHECK RANDOM
                         if (random.nextInt(100) + 1 >= Settings.skeletonHorseReduction) {
-
                             DoodLog.debug("Blocking skeleton horse spawn randomly at [" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + "]");
                             event.setCancelled(true);
                         }

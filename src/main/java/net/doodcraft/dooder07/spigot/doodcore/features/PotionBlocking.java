@@ -100,7 +100,7 @@ public class PotionBlocking implements Listener {
         ItemStack item = event.getInventory().getResult();
         Material mat = item.getType();
 
-        if(mat == Material.TIPPED_ARROW) {
+        if (mat == Material.TIPPED_ARROW) {
             PotionMeta meta = (PotionMeta) item.getItemMeta();
             PotionData data = meta.getBasePotionData();
 

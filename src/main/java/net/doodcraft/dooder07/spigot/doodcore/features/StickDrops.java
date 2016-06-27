@@ -46,23 +46,21 @@ public class StickDrops implements Listener {
             Player player = event.getPlayer();
             Block block = event.getBlock();
 
-            Material mat = null;
-
             if (block.getType() != null) {
-                mat = block.getType();
-            }
+                Material mat = block.getType();
 
-            if (player != null) {
-                if (player.getGameMode() == GameMode.SURVIVAL) {
-                    if (mat == Material.LEAVES || mat == Material.LEAVES_2) {
-                        int chance = random.nextInt(20) + 1;
+                if (player != null) {
+                    if (player.getGameMode().equals(GameMode.SURVIVAL)) {
+                        if (mat.equals(Material.LEAVES) || mat.equals(Material.LEAVES_2)) {
+                            int chance = random.nextInt(20) + 1;
 
-                        if (chance == 1) {
-                            player.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.STICK, 1));
-                        }
+                            if (chance == 1) {
+                                player.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.STICK, 1));
+                            }
 
-                        if (chance == 2) {
-                            player.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.STICK, 2));
+                            if (chance == 2) {
+                                player.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.STICK, 2));
+                            }
                         }
                     }
                 }

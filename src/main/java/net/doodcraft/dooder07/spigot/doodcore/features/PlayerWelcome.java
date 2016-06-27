@@ -67,7 +67,6 @@ public class PlayerWelcome implements Listener {
                     }
 
                     greetable.add(player.getName());
-
                     startRemoveTask(player);
                 }, 20L);
             }
@@ -78,7 +77,6 @@ public class PlayerWelcome implements Listener {
     public void onChat(AsyncPlayerChatEvent e) {
 
         Player player = e.getPlayer();
-
         String message = e.getMessage().toLowerCase();
 
         Settings.validWelcomeList.stream().filter(greeting -> message.toLowerCase().contains(greeting.toLowerCase())).forEach(greeting -> {
@@ -130,13 +128,12 @@ public class PlayerWelcome implements Listener {
 
     public void giveReward(Player greeter, Player greeted) {
         if (Compatibility.isHooked("Vault")) {
-            FancyMessage msg = new FancyMessage(StringParser.addColor(Settings.pluginPrefix + " &aThanks for welcoming " + greeted.getDisplayName() + " &ato &2" + Settings.serverName +  "&a!"));
-            msg.tooltip(StringParser.addColor("&eYou both earned &6$10&e!"));
+            FancyMessage msg = new FancyMessage(StringParser.addColor(Settings.pluginPrefix + " &aThanks for welcoming " + greeted.getDisplayName() + " &ato &2" + Settings.serverName +  "&a!"))
+                    .tooltip(StringParser.addColor("&eYou both earned &6$10&e!"));
 
             Methods.sendFancyMessage(greeter, msg);
 
             Economy econ = Vault.economy;
-
             econ.depositPlayer(greeter, 10);
             econ.depositPlayer(greeted, 10);
 
