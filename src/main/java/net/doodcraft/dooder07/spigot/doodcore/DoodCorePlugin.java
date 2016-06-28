@@ -103,7 +103,7 @@ public class DoodCorePlugin extends JavaPlugin {
         TimeRewards.addAllPlayers();
         PasswordBruteForce.addAllPlayers();
         TabMenu.startRefresh();
-        NewbieProtection.addAllPlayers();
+        PvPManager.addAllPlayers();
     }
 
     public static void cleanUp() {
@@ -132,12 +132,12 @@ public class DoodCorePlugin extends JavaPlugin {
         registerEvents(plugin, new ChorusFruit());
         registerEvents(plugin, new TownDistance());
         registerEvents(plugin, new PasswordBruteForce());
-        registerEvents(plugin, new NewbieProtection());
         registerEvents(plugin, new MobFarming());
         registerEvents(plugin, new PotionBlocking());
         registerEvents(plugin, new SkeletonHorses());
         registerEvents(plugin, new StickDrops());
         registerEvents(plugin, new PvPManager());
+        registerEvents(plugin, new ConnectMessages());
     }
 
     public static void registerEvents(Plugin plugin, Listener... listeners) {

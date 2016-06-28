@@ -60,6 +60,7 @@ public class Settings {
     public static List<String> bruteForcePasswords;
 
     public static int pvpNewbTime;
+    public static List<String> combatBlockedCommands;
 
     public static boolean despawnSkeletonHorses;
     public static int skeletonHorseReduction;
@@ -132,6 +133,16 @@ public class Settings {
         bruteForcePasswords.add("qwerty");
 
         pvpNewbTime = 360;
+        combatBlockedCommands = new ArrayList<>();
+        combatBlockedCommands.add("spawn");
+        combatBlockedCommands.add("tpa");
+        combatBlockedCommands.add("tpahere");
+        combatBlockedCommands.add("t");
+        combatBlockedCommands.add("home");
+        combatBlockedCommands.add("ptp");
+        combatBlockedCommands.add("dial");
+        combatBlockedCommands.add("warp");
+
 
         despawnSkeletonHorses = false;
         skeletonHorseReduction = 75;
@@ -175,6 +186,7 @@ public class Settings {
         config.add("AntiHack.PasswordBruteForce.PassList", bruteForcePasswords);
 
         config.add("PvPManager.DefaultNewbTime", pvpNewbTime);
+        config.add("PvPManager.CombatBlockedCommands", combatBlockedCommands);
 
         config.add("VanillaMod.SkeletonHorses.Despawn", despawnSkeletonHorses);
         config.add("VanillaMod.SkeletonHorses.ReductionPercent", skeletonHorseReduction);
@@ -219,6 +231,7 @@ public class Settings {
         checkChorusFruitTeleport = config.getBoolean("Compliance.ChorusFruit.CheckTeleport");
 
         pvpNewbTime = config.getInteger("PvPManager.DefaultNewbTime");
+        combatBlockedCommands = config.getStringList("PvPManager.CombatBlockedCommands");
 
         despawnSkeletonHorses = config.getBoolean("VanillaMod.SkeletonHorses.Despawn");
         skeletonHorseReduction = config.getInteger("VanillaMod.SkeletonHorses.ReductionPercent");

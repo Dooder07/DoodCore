@@ -75,6 +75,11 @@
             <id>ess-repo</id>
             <url>http://repo.ess3.net/content/groups/essentials</url>
         </repository>
+
+        <repository>
+            <id>everything</id>
+            <url>http://repo.citizensnpcs.co</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -130,6 +135,13 @@
             <version>0.91.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/Towny.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>net.citizensnpcs</groupId>
+            <artifactId>citizensapi</artifactId>
+            <version>2.0.19-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

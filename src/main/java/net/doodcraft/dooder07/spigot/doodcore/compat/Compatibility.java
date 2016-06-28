@@ -54,6 +54,8 @@ public class Compatibility {
         hookPlugin("Essentials", "2.0.1", "2.0.1");
         hookPlugin("Towny", "0.91.1", "0.91.1");
         hookPlugin("Litebans", "2.0.17", "2.0.17");
+        hookPlugin("mcMMO", "1.5.05", "1.5.05");
+        hookPlugin("Citizens", "2.0.19", "2.0.19");
     }
 
     public static boolean hookPlugin(String name, String min, String max) {
