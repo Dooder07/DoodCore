@@ -16,6 +16,8 @@ commands:
     description: Relore the item in your main hand
   search:
     description: Search nearby for items or entities
+  watchlist:
+    description: WatchList management
 permissions:
   doodcore.admin:
     description: Parent node for administrators
@@ -37,4 +39,7 @@ permissions:
     default: OP
   doodcore.command.search:
     description: Allows /search
+    default: OP
+  doodcore.command.watchlist:
+    description: Allows /watchlist
     default: OP

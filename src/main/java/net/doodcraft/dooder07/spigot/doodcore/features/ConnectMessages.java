@@ -1,8 +1,5 @@
 package net.doodcraft.dooder07.spigot.doodcore.features;
 
-import net.doodcraft.dooder07.spigot.doodcore.StringParser;
-import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
-import net.doodcraft.dooder07.spigot.doodcore.compat.Vault;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -35,17 +32,28 @@ public class ConnectMessages implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (Compatibility.isHooked("Vault")) {
-            event.setJoinMessage(StringParser.addColor("&8[&r" + Vault.chat.getPlayerPrefix(null, event.getPlayer()) + "<name>&8] &ejoined the game.")
-                    .replaceAll("<name>", event.getPlayer().getName()));
-        }
+//        if (Compatibility.isHooked("Vault")) {
+//            if (Bukkit.getServer().getName().equalsIgnoreCase("Lobby")) {
+//                event.setJoinMessage(StringParser.addColor("&8[&r" + Vault.chat.getPlayerPrefix(null, event.getPlayer()) + "<name>&8] &ejoined the lobby.")
+//                        .replaceAll("<name>", event.getPlayer().getName()));
+//            } else {
+//                event.setJoinMessage(StringParser.addColor("&8[&r" + Vault.chat.getPlayerPrefix(null, event.getPlayer()) + "<name>&8] &ejoined the game.")
+//                        .replaceAll("<name>", event.getPlayer().getName()));
+//            }
+//        }
+
+        // Let Bungee handle <></>he connection messages
+        event.setJoinMessage(null);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        if (Compatibility.isHooked("Vault")) {
-            event.setQuitMessage(StringParser.addColor("&8[&r" + Vault.chat.getPlayerPrefix(null, event.getPlayer()) + "<name>&8] &equit the game.")
-                    .replaceAll("<name>", event.getPlayer().getName()));
-        }
+//        if (Compatibility.isHooked("Vault")) {
+//            event.setQuitMessage(StringParser.addColor("&8[&r" + Vault.chat.getPlayerPrefix(null, event.getPlayer()) + "<name>&8] &equit.")
+//                    .replaceAll("<name>", event.getPlayer().getName()));
+//        }
+
+        // Let Bungee handle the connection messages
+        event.setQuitMessage(null);
     }
 }

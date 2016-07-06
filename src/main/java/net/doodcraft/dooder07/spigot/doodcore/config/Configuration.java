@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfigurationOptions;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The MIT License (MIT)
@@ -117,6 +118,10 @@ public class Configuration {
         if (!contains(s)) {
             set(s, o);
         }
+    }
+
+    public Set<String> getKeys(boolean deep) {
+        return yaml.getKeys(deep);
     }
 
     public void addToStringList(String s, String o) {

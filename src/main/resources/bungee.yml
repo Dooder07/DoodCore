@@ -1,0 +1,4 @@
+name: DoodCore
+main: net.doodcraft.dooder07.bungeecord.doodcore.DoodCorePlugin
+version: 0.1
+author: Dooder07

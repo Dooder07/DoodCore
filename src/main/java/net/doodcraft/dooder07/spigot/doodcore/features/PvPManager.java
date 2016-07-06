@@ -6,15 +6,16 @@ import net.doodcraft.dooder07.spigot.doodcore.config.Configuration;
 import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Sound;
 import org.bukkit.Statistic;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LingeringPotion;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.SplashPotion;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -83,7 +84,12 @@ public class PvPManager implements Listener {
             Player victim = (Player) event.getEntity();
             Player aggressor = null;
 
-            // todo: add enderpearls and fix lingering potion
+            if (event.getDamager() instanceof EnderPearl) {
+                EnderPearl pearl = (EnderPearl) event.getDamager();
+                if (pearl.getShooter() instanceof Player) {
+                    aggressor = (Player) pearl.getShooter();
+                }
+            }
 
             if (event.getDamager() instanceof Arrow) {
                 Arrow arrow = (Arrow) event.getDamager();
@@ -99,6 +105,7 @@ public class PvPManager implements Listener {
                 }
             }
 
+            // todo: change this later to make it more effective
             if (event.getDamager() instanceof LingeringPotion) {
                 LingeringPotion potion = (LingeringPotion) event.getDamager();
                 if (potion.getShooter() instanceof Player) {
@@ -165,14 +172,10 @@ public class PvPManager implements Listener {
                     return;
                 }
 
-                if (aggressor.getGameMode().equals(GameMode.CREATIVE)) {
+                if (aggressor.getGameMode().equals(GameMode.CREATIVE) || teleportProtected.contains(aggressor.getName()) || teleportProtected.contains(victim.getName())) {
                     aggressor.sendMessage(StringParser.addColor("&7Your attack seems to have no effect.."));
-                    event.setCancelled(true);
-                    return;
-                }
-
-                if (teleportProtected.contains(aggressor.getName()) || teleportProtected.contains(victim.getName())) {
-                    aggressor.sendMessage(StringParser.addColor("&7Your attack seems to have no effect.."));
+                    victim.getWorld().playSound(victim.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, (float) 2.0, (float) 0.8);
+                    aggressor.playSound(aggressor.getLocation(), Sound.ENTITY_VILLAGER_NO, (float) 2.0, (float) 1.3);
                     event.setCancelled(true);
                     return;
                 }
@@ -294,6 +297,7 @@ public class PvPManager implements Listener {
 
         if (!pvpLogged.contains(player.getName())) {
 
+            player.playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, (float) 2.0, (float) 1.4);
             player.sendMessage(StringParser.addColor(Settings.pluginPrefix + " &cYou have entered mortal kombat!!\n&8:: &eTeleportation commands are disabled!\n&8:: &eLogging out before it's over &nwill&e result in DEATH!"));
 
             pvpLogged.add(player.getName());
@@ -303,7 +307,7 @@ public class PvPManager implements Listener {
                 @Override
                 public void run() {
                     if (pvpLogged.contains(player.getName())) {
-                        if ((System.currentTimeMillis() - inCombat.get(player.getName())) > 29000) {
+                        if ((System.currentTimeMillis() - inCombat.get(player.getName())) > 14000) {
 
                             player.sendMessage(StringParser.addColor(Settings.pluginPrefix + " &aYou are no longer in combat!"));
 
@@ -316,7 +320,7 @@ public class PvPManager implements Listener {
                         }
                     }
                 }
-            }, 600L, 20L));
+            }, 300L, 20L));
         }
     }
 
@@ -348,8 +352,6 @@ public class PvPManager implements Listener {
     }
 
     public static void addAllPlayers() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            addNoob(player);
-        }
+        Bukkit.getOnlinePlayers().forEach(net.doodcraft.dooder07.spigot.doodcore.features.PvPManager::addNoob);
     }
 }

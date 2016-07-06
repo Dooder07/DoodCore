@@ -1,6 +1,8 @@
 package net.doodcraft.dooder07.spigot.doodcore;
 
 import net.doodcraft.dooder07.spigot.doodcore.anticheat.PasswordBruteForce;
+import net.doodcraft.dooder07.spigot.doodcore.bungee.BungeeCordListener;
+import net.doodcraft.dooder07.spigot.doodcore.bungee.CommandFactory;
 import net.doodcraft.dooder07.spigot.doodcore.commands.*;
 import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
 import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
@@ -8,12 +10,12 @@ import net.doodcraft.dooder07.spigot.doodcore.features.*;
 import net.doodcraft.dooder07.spigot.doodcore.sql.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * The MIT License (MIT)
@@ -42,7 +44,6 @@ public class DoodCorePlugin extends JavaPlugin {
 
     public static DoodCorePlugin plugin;
     public static long startTime;
-    public static List<Integer> tasks;
 
     public static MySQL mySql = null;
     public static Connection connection = null;
@@ -102,8 +103,14 @@ public class DoodCorePlugin extends JavaPlugin {
         // FEATURES
         TimeRewards.addAllPlayers();
         PasswordBruteForce.addAllPlayers();
-        TabMenu.startRefresh();
         PvPManager.addAllPlayers();
+
+        // BUNGEECORD
+        plugin.getServer().getMessenger().registerIncomingPluginChannel(plugin, "BungeeCord", new BungeeCordListener());
+        CommandFactory.setupAbstractCommands();
+
+        // ADD RECIPES
+//        addRecipe(EasterEgg.getExplosiveArrowRecipe());
     }
 
     public static void cleanUp() {
@@ -122,13 +129,11 @@ public class DoodCorePlugin extends JavaPlugin {
         // FEATURES
         TimeRewards.removeAllPlayers();
         PasswordBruteForce.removeAllPlayers();
-        TabMenu.stopRefresh();
     }
 
     public void registerListeners() {
         registerEvents(plugin, new PlayerWelcome());
         registerEvents(plugin, new TimeRewards());
-        registerEvents(plugin, new TabMenu());
         registerEvents(plugin, new ChorusFruit());
         registerEvents(plugin, new TownDistance());
         registerEvents(plugin, new PasswordBruteForce());
@@ -138,6 +143,9 @@ public class DoodCorePlugin extends JavaPlugin {
         registerEvents(plugin, new StickDrops());
         registerEvents(plugin, new PvPManager());
         registerEvents(plugin, new ConnectMessages());
+        registerEvents(plugin, new WatchList());
+        registerEvents(plugin, new EasterEgg());
+        registerEvents(plugin, new Lobby());
     }
 
     public static void registerEvents(Plugin plugin, Listener... listeners) {
@@ -152,5 +160,10 @@ public class DoodCorePlugin extends JavaPlugin {
         getCommand("rename").setExecutor(new Rename());
         getCommand("relore").setExecutor(new Relore());
         getCommand("search").setExecutor(new Search());
+        getCommand("watchlist").setExecutor(new WatchList());
+    }
+
+    public static void addRecipe(Recipe recipe) {
+        DoodCorePlugin.plugin.getServer().addRecipe(recipe);
     }
 }

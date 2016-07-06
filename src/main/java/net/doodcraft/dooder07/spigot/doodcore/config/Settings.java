@@ -67,6 +67,9 @@ public class Settings {
 
     public static boolean stickDrops;
 
+
+    public static List<String> servers;
+
     // LOCALE
     public static String serverName;
     public static String pluginPrefix;
@@ -147,6 +150,11 @@ public class Settings {
         despawnSkeletonHorses = false;
         skeletonHorseReduction = 75;
 
+        servers = new ArrayList<>();
+        servers.add("Lobby");
+        servers.add("SMP");
+        servers.add("Development");
+
         // LOCALE
         serverName = Bukkit.getServerName();
         pluginPrefix = "&e[&6DoodCore&e]&r";
@@ -193,6 +201,8 @@ public class Settings {
 
         config.add("VanillaMod.StickDrops", stickDrops);
 
+        config.add("BungeeCord.Servers", servers);
+
         //      LOCALE
         locale.add("Server.Name", serverName);
         locale.add("Server.PluginPrefix", pluginPrefix);
@@ -237,6 +247,8 @@ public class Settings {
         skeletonHorseReduction = config.getInteger("VanillaMod.SkeletonHorses.ReductionPercent");
 
         stickDrops = config.getBoolean("VanillaMod.StickDrops");
+
+        servers = config.getStringList("BungeeCord.Servers");
     }
 
     public static void setNewLocaleValues(Configuration locale) {
