@@ -1,15 +1,15 @@
 package net.doodcraft.dooder07.bungeecord.doodcore.features;
 
+import net.alpenblock.bungeeperms.BungeePerms;
 import net.doodcraft.dooder07.bungeecord.doodcore.BungeeLog;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
-
-import static net.doodcraft.dooder07.bungeecord.doodcore.compat.BungeePerms.getManager;
 
 /**
  * The MIT License (MIT)
@@ -41,8 +41,10 @@ public class ConnectMessages implements Listener {
         ProxiedPlayer player = event.getPlayer();
         String name = player.getName();
 
-        if (getManager() != null) {
-            name = getManager().getUser(name).getPrefix() + name;
+        BungeeLog.log("DoodCore", name + " joined the game.");
+
+        if (BungeePerms.getInstance().getPermissionsManager() != null) {
+            name = BungeePerms.getInstance().getPermissionsManager().getUser(name).getGroupByLadder("default").getPrefix() + name;
 
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
 
@@ -56,13 +58,26 @@ public class ConnectMessages implements Listener {
         ProxiedPlayer player = event.getPlayer();
         String name = player.getName();
 
-        if (getManager() != null) {
-            name = getManager().getUser(name).getPrefix() + name;
+        BungeeLog.log("DoodCore", name + " quit the game.");
+
+        if (BungeePerms.getInstance().getPermissionsManager() != null) {
+            name = BungeePerms.getInstance().getPermissionsManager().getUser(name).getGroupByLadder("default").getPrefix() + name;
 
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
 
                 p.sendMessage(new TextComponent(BungeeLog.addColor("&8[" + name + "&8]&e quit the game.")));
             }
+        }
+    }
+
+    @EventHandler
+    public void onChat(ChatEvent event) {
+        ProxiedPlayer player = (ProxiedPlayer) event.getSender();
+        String name = player.getName();
+
+        if (BungeePerms.getInstance().getPermissionsManager() != null) {
+            name = BungeePerms.getInstance().getPermissionsManager().getUser(name).getGroupByLadder("default").getPrefix() + name;
+            BungeeLog.log("DoodCore|ChatEvent", name + "&8: &7" + event.getMessage());
         }
     }
 }

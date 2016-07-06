@@ -1,7 +1,9 @@
-package net.doodcraft.dooder07.bungeecord.doodcore.compat;
+package net.doodcraft.dooder07.bungeecord.doodcore;
 
-import net.alpenblock.bungeeperms.PermissionsManager;
-import net.doodcraft.dooder07.bungeecord.doodcore.DoodCorePlugin;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.plugin.Command;
 
 /**
  * The MIT License (MIT)
@@ -26,12 +28,26 @@ import net.doodcraft.dooder07.bungeecord.doodcore.DoodCorePlugin;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-public class BungeePerms {
-    public static PermissionsManager getManager() {
-        if (DoodCorePlugin.plugin.getProxy().getPluginManager().getPlugin("BungeePerms") != null) {
-            return BungeePerms.getManager();
+public class GlobalSayCommand extends Command {
+
+    public GlobalSayCommand() {
+        super("gs");
+    }
+
+    @Override
+    public void execute(CommandSender commandSender, String[] strings) {
+
+        StringBuilder builder = new StringBuilder();
+        for(String s : strings) {
+            builder.append(s);
         }
 
-        return null;
+        if (commandSender instanceof ProxiedPlayer) {
+            String name = commandSender.getName();
+            DoodCorePlugin.plugin.getProxy().broadcast(new TextComponent(BungeeLog.addColor("&8[&7" + name + "&8] &f" + builder.toString())));
+        } else {
+            String name = "CONSOLE";
+            DoodCorePlugin.plugin.getProxy().broadcast(new TextComponent(BungeeLog.addColor("&8[&7" + name + "&8] &f" + builder.toString())));
+        }
     }
 }

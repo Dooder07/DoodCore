@@ -37,6 +37,7 @@ public class DoodCorePlugin extends Plugin {
         BungeeLog.log("Core", "Enabled!");
 
         registerEvents(plugin, new ConnectMessages());
+        getProxy().getPluginManager().registerCommand(this, new GlobalSayCommand());
     }
 
     public void registerEvents(Plugin plugin, Listener... listeners) {
