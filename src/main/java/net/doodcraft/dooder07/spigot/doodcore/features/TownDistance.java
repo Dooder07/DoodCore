@@ -1,6 +1,5 @@
 package net.doodcraft.dooder07.spigot.doodcore.features;
 
-import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
@@ -16,29 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-/**
- * The MIT License (MIT)
- * -
- * Copyright (c) 2016 Conor O'Shields
- * -
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * -
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * -
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
+// Todo: Extract Towny related code and make this work with other plugin's regions.
 public class TownDistance implements Listener {
 
     @EventHandler
@@ -100,38 +77,42 @@ public class TownDistance implements Listener {
                 } else {
                     townName = "Wilderness";
                 }
-            } catch (NotRegisteredException ex) {
+            } catch (Exception ex) {
                 DoodLog.printError("Core", "Towny Not Registered Exception", ex);
             }
 
-            for (int x = -radius; x <= radius; x++) {
-                for (int z = -radius; z <= radius; z++) {
-                    if ((x * x) + (z * z) <= (radius * radius)) {
-                        Location check = new Location(loc.getWorld(), loc.getBlockX() + x, loc.getBlockY(), loc.getBlockZ() + z);
-                        Block block = check.getBlock();
+            try {
+                for (int x = -radius; x <= radius; x++) {
+                    for (int z = -radius; z <= radius; z++) {
+                        if ((x * x) + (z * z) <= (radius * radius)) {
+                            Location check = new Location(loc.getWorld(), loc.getBlockX() + x, loc.getBlockY(), loc.getBlockZ() + z);
+                            Block block = check.getBlock();
 
-                        String otherTownName = TownyUniverse.getTownName(check);
+                            String otherTownName = TownyUniverse.getTownName(check);
 
-                        Town otherTown = null;
-                        try {
+                            Town otherTown = null;
                             try {
-                                otherTown = TownyUniverse.getDataSource().getTown(otherTownName);
-                            } catch (NullPointerException ex) {
-                                otherTownName = "Wilderness";
+                                try {
+                                    otherTown = TownyUniverse.getDataSource().getTown(otherTownName);
+                                } catch (NullPointerException ex) {
+                                    otherTownName = "Wilderness";
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (NotRegisteredException e) {
-                            e.printStackTrace();
-                        }
 
-                        if (!TownyUniverse.isWilderness(block) && !townName.equalsIgnoreCase(otherTownName)) {
-                            return false;
-                        }
+                            if (!TownyUniverse.isWilderness(block) && !townName.equalsIgnoreCase(otherTownName)) {
+                                return false;
+                            }
 
-                        if (otherTown != null && !CombatUtil.isAlly(otherTown, town)) {
-                            return false;
+                            if (otherTown != null && !CombatUtil.isAlly(otherTown, town)) {
+                                return false;
+                            }
                         }
                     }
                 }
+            } catch (Exception ex) {
+                DoodLog.printError("Core", "Exception", ex);
             }
         } else {
             DoodLog.log("DoodCore", "&cTowny is not hooked. TownDistance checking is disabled.");
