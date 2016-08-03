@@ -22,8 +22,10 @@ import net.md_5.bungee.event.EventHandler;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+// todo: increase speed and efficiency in finding a valid server for new and returning players. The goal is total seamlessness.
 public class ConnectHandler implements Listener {
 
     public static String DEFAULT_SERVER = "SMP";
@@ -114,7 +116,7 @@ public class ConnectHandler implements Listener {
                                 BungeeLog.log("DoodCore", "SMP is online. Sending " + formattedName + " &rthere now.");
                                 player.connect(server);
                             } else {
-                                BungeeLog.log("DoodCore", "SMP couldnt be reached. Sending " + formattedName + " &rto the lobby.");
+                                BungeeLog.log("DoodCore", "SMP couldn't be reached. Sending " + formattedName + " &rto the lobby.");
                                 player.connect(ProxyServer.getInstance().getServerInfo(FALLBACK_SERVER));
                             }
                         }
@@ -131,10 +133,29 @@ public class ConnectHandler implements Listener {
                     public void done(ServerPing serverPing, Throwable throwable) {
                         if (throwable == null) {
                             BungeeLog.log("DoodCore", config.getString("LastServer") + " is online. Sending " + formattedName + " &rthere now.");
-                            player.connect(server);
+                            // BungeeCord should send them there by default. Unless anything changes in the future, let's do nothing.
+                            return;
                         } else {
-                            BungeeLog.log("DoodCore", config.getString("LastServer") + " couldnt be reached. Sending " + formattedName + " &rto the lobby.");
-                            player.connect(ProxyServer.getInstance().getServerInfo(FALLBACK_SERVER));
+                            // Now let's ping the Lobby and send them there. If the lobby is down, let's find the first available server instead.
+                            BungeeLog.log("DoodCore", config.getString("LastServer") + " couldn't be reached. Checking lobby status...");
+
+                            ServerInfo server = ProxyServer.getInstance().getServerInfo(FALLBACK_SERVER);
+                            server.ping(new Callback<ServerPing>() {
+                                @Override
+                                public void done(ServerPing serverPing, Throwable throwable) {
+                                    if (throwable == null) {
+                                        BungeeLog.log("DoodCore", FALLBACK_SERVER + " is online. Sending " + formattedName + " &rthere now.");
+                                        player.connect(ProxyServer.getInstance().getServerInfo(FALLBACK_SERVER));
+                                    } else {
+                                        // Now let's ping the Lobby and send them there. If the lobby is down, let's find the first available server instead.
+                                        BungeeLog.log("DoodCore", FALLBACK_SERVER + " couldn't be reached. Looking for first available server...");
+                                        if (!sendToFirstAvailable(player)) {
+                                            BungeeLog.log("DoodCore", "No servers could be reached. Kicking the player now.");
+                                            player.getPendingConnection().disconnect(new TextComponent(BungeeLog.addColor("&eIt appears there are no online servers at this time.. Please try again later!")));
+                                        }
+                                    }
+                                }
+                            });
                         }
                     }
                 });
@@ -142,6 +163,27 @@ public class ConnectHandler implements Listener {
         } else {
             BungeeLog.log("DoodCore", "Error finding configuration file. It was null?");
         }
+    }
+
+    public boolean sendToFirstAvailable(ProxiedPlayer player) {
+        final boolean[] connected = {false};
+
+        for (Map.Entry<String, ServerInfo> entry : ProxyServer.getInstance().getServers().entrySet()) {
+            entry.getValue().ping(new Callback<ServerPing>() {
+                @Override
+                public void done(ServerPing serverPing, Throwable throwable) {
+                    if (throwable == null) {
+                        BungeeLog.log("DoodCore", entry.getKey() + " is online. Sending " + player.getDisplayName() + " &rthere now.");
+                        player.connect(entry.getValue());
+                        connected[0] = true;
+                        return;
+                    }
+                    // offline, try the next server.
+                }
+            });
+        }
+
+        return connected[0];
     }
 
     @EventHandler
