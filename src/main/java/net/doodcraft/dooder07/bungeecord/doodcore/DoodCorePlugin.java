@@ -14,7 +14,7 @@ public class DoodCorePlugin extends Plugin {
 
         plugin = this;
 
-        registerEvents(plugin, new ConnectHandler());
+        registerEvents(plugin, new ConnectHandler(), new BungeeLog());
         registerCommands();
 
         BungeeLog.log("DoodCore", "Enabled! &e(" + String.valueOf(System.currentTimeMillis() - start) + "&ems)");
