@@ -116,7 +116,7 @@ public class ConnectHandler implements Listener {
                                 BungeeLog.log("DoodCore", DEFAULT_SERVER + " is online. Sending " + formattedName + " &rthere now.");
                                 player.connect(server);
                             } else {
-                                // Now let's ping the Lobby and send them there. If the lobby is down, let's find the first available server instead.
+                                // Now let's ping the fallback server and send them there. If the fallback server is down, let's find the first available server instead.
                                 BungeeLog.log("DoodCore", DEFAULT_SERVER + " couldn't be reached. Checking fallback server status...");
 
                                 ServerInfo server = ProxyServer.getInstance().getServerInfo(FALLBACK_SERVER);
@@ -154,7 +154,7 @@ public class ConnectHandler implements Listener {
                             // BungeeCord should send them there by default. Unless anything changes in the future, let's do nothing.
                             return;
                         } else {
-                            // Now let's ping the Lobby and send them there. If the lobby is down, let's find the first available server instead.
+                            // Now let's ping the fallback server and send them there. If the fallback server is down, let's find the first available server instead.
                             BungeeLog.log("DoodCore", config.getString("LastServer") + " couldn't be reached. Checking fallback server status...");
 
                             ServerInfo server = ProxyServer.getInstance().getServerInfo(FALLBACK_SERVER);
