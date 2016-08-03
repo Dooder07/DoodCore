@@ -113,11 +113,11 @@ public class ConnectHandler implements Listener {
                         @Override
                         public void done(ServerPing serverPing, Throwable throwable) {
                             if (throwable == null) {
-                                BungeeLog.log("DoodCore", "SMP is online. Sending " + formattedName + " &rthere now.");
+                                BungeeLog.log("DoodCore", DEFAULT_SERVER + " is online. Sending " + formattedName + " &rthere now.");
                                 player.connect(server);
                             } else {
                                 // Now let's ping the Lobby and send them there. If the lobby is down, let's find the first available server instead.
-                                BungeeLog.log("DoodCore", "SMP couldn't be reached. Checking lobby status...");
+                                BungeeLog.log("DoodCore", DEFAULT_SERVER + " couldn't be reached. Checking fallback server status...");
 
                                 ServerInfo server = ProxyServer.getInstance().getServerInfo(FALLBACK_SERVER);
                                 server.ping(new Callback<ServerPing>() {
@@ -155,7 +155,7 @@ public class ConnectHandler implements Listener {
                             return;
                         } else {
                             // Now let's ping the Lobby and send them there. If the lobby is down, let's find the first available server instead.
-                            BungeeLog.log("DoodCore", config.getString("LastServer") + " couldn't be reached. Checking lobby status...");
+                            BungeeLog.log("DoodCore", config.getString("LastServer") + " couldn't be reached. Checking fallback server status...");
 
                             ServerInfo server = ProxyServer.getInstance().getServerInfo(FALLBACK_SERVER);
                             server.ping(new Callback<ServerPing>() {
