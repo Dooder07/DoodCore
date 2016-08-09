@@ -1,6 +1,5 @@
 package net.doodcraft.dooder07.spigot.doodcore;
 
-import net.doodcraft.dooder07.spigot.doodcore.anticheat.PasswordBruteForce;
 import net.doodcraft.dooder07.spigot.doodcore.bungee.BungeeCordListener;
 import net.doodcraft.dooder07.spigot.doodcore.bungee.CommandFactory;
 import net.doodcraft.dooder07.spigot.doodcore.commands.*;
@@ -40,7 +39,10 @@ public class DoodCorePlugin extends JavaPlugin {
         registerListeners();
         setExecutors();
 
-        DoodLog.log("DoodCore", "DoodCore is fully loaded! (" + (System.currentTimeMillis() - startTime) + "ms)");
+        String art = "\n .----------------.  .----------------. \n| .--------------. || .--------------. |\n| |  ________    | || |     ______   | |\n| | |_   ___ `.  | || |   .' ___  |  | |\n| |   | |   `. \\ | || |  / .'   \\_|  | |\n| |   | |    | | | || |  | |         | |\n| |  _| |___.' / | || |  \\ `.___.'\\  | |\n| | |________.'  | || |   `._____.'  | |\n| |              | || |              | |\n| '--------------' || '--------------' |\n '----------------'  '----------------' \n";
+
+        DoodLog.log("DoodCore", art);
+        DoodLog.log("DoodCore", "DoodCore v" + plugin.getDescription().getVersion() +  " is fully loaded! (" + (System.currentTimeMillis() - startTime) + "ms)");
     }
 
     @Override
@@ -80,7 +82,6 @@ public class DoodCorePlugin extends JavaPlugin {
 
         // FEATURES
         TimeRewards.addAllPlayers();
-        PasswordBruteForce.addAllPlayers();
         PvPManager.addAllPlayers();
 
         // BUNGEECORD
@@ -114,7 +115,6 @@ public class DoodCorePlugin extends JavaPlugin {
 
         // FEATURES
         TimeRewards.removeAllPlayers();
-        PasswordBruteForce.removeAllPlayers();
 
         // LOBBY
         for (int task : Lobby.fireworksTasks) {
@@ -127,7 +127,6 @@ public class DoodCorePlugin extends JavaPlugin {
         registerEvents(plugin, new TimeRewards());
         registerEvents(plugin, new ChorusFruit());
         registerEvents(plugin, new TownDistance());
-        registerEvents(plugin, new PasswordBruteForce());
         registerEvents(plugin, new MobFarming());
         registerEvents(plugin, new PotionBlocking());
         registerEvents(plugin, new SkeletonHorses());

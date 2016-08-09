@@ -1,5 +1,7 @@
 package net.doodcraft.dooder07.bungeecord.doodcore;
 
+import net.doodcraft.dooder07.bungeecord.doodcore.anticheat.PasswordBruteForce;
+import net.doodcraft.dooder07.bungeecord.doodcore.config.Settings;
 import net.doodcraft.dooder07.bungeecord.doodcore.features.*;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -14,10 +16,19 @@ public class DoodCorePlugin extends Plugin {
 
         plugin = this;
 
-        registerEvents(plugin, new ConnectHandler(), new BungeeLog());
+        Settings.setupDefaults();
+
+        registerEvents(plugin, new ConnectHandler(), new BungeeLog(), new MaintenanceMode(), new PasswordBruteForce());
         registerCommands();
 
+        PasswordBruteForce.addAllPlayers();
+
         BungeeLog.log("DoodCore", "Enabled! &e(" + String.valueOf(System.currentTimeMillis() - start) + "&ems)");
+    }
+
+    @Override
+    public void onDisable() {
+        PasswordBruteForce.removeAllPlayers();
     }
 
     public void registerEvents(Plugin plugin, Listener... listeners) {
@@ -36,5 +47,6 @@ public class DoodCorePlugin extends Plugin {
         getProxy().getPluginManager().registerCommand(this, new GlobalStaffSCommand());
         getProxy().getPluginManager().registerCommand(this, new GlobalAdminCommand());
         getProxy().getPluginManager().registerCommand(this, new GlobalAdminACommand());
+        getProxy().getPluginManager().registerCommand(this, new MaintenanceModeCommand());
     }
 }

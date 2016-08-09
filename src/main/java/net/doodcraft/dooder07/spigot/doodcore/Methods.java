@@ -1,13 +1,15 @@
 package net.doodcraft.dooder07.spigot.doodcore;
 
 import mkremins.fanciful.FancyMessage;
-import net.doodcraft.dooder07.spigot.doodcore.compat.Compatibility;
 import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
 import net.minecraft.server.v1_10_R1.IChatBaseComponent;
 import net.minecraft.server.v1_10_R1.PacketPlayOutChat;
-import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Methods {
     public static void sendNoPermission(Player player, String node) {
@@ -23,18 +25,14 @@ public class Methods {
         sendJsonMessage(player, message.toJSONString());
     }
 
-    public static void banPlayer(Player player, String reason) {
-        String ip = String.valueOf(player.getAddress().getAddress());
-        ip = ip.replaceAll("/", "");
+    public static String getTime(String format) {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 
-        if (Compatibility.isHooked("Litebans")) {
-            if (reason.equalsIgnoreCase("passwordbruteforce")) {
-                Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "ipban " + ip + " " + Settings.pluginPrefix + " &cYou are using an illegal mod/client!");
-                return;
-            }
-            Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "ipban " + ip + " " + Settings.pluginPrefix + " &eGeneral breach of the rules!");
-        } else {
-            DoodLog.log("DoodCore", "&cLitebans is not hooked. Autoban was denied.");
-        }
+    public static String getPlayerIP(Player player) {
+        String ip = String.valueOf(player.getAddress().getAddress().getHostAddress());
+        return ip.replaceAll("/", "");
     }
 }

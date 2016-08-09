@@ -16,10 +16,14 @@ import net.md_5.bungee.event.EventHandler;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 // todo: Handle the player's target server quickly and without disturbing the player's QoS.
 public class ConnectHandler implements Listener {
+
+    public static ArrayList<ProxiedPlayer> connected = new ArrayList<>();
+
     public static Configuration getConfig(String name) {
         try {
             return ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(DoodCorePlugin.plugin.getDataFolder() + File.separator + "players" + File.separator, name + ".yml"));
@@ -57,16 +61,22 @@ public class ConnectHandler implements Listener {
 
     @EventHandler
     public void onConnected(ServerConnectedEvent event) {
+        ProxiedPlayer player = event.getPlayer();
+
         if (BungeePerms.getInstance().getPermissionsManager() != null) {
-            ProxiedPlayer player = event.getPlayer();
-            String formattedName = BungeePerms.getInstance().getPermissionsManager().getUser(player.getName()).getGroupByLadder("default").getPrefix() + player.getName();
 
-            BungeeLog.log(formattedName + " &ejoined the game from IP: &b" + player.getAddress());
-            Configuration config = getConfig(event.getPlayer().getName());
+            if (!connected.contains(event.getPlayer())) {
+                String formattedName = BungeePerms.getInstance().getPermissionsManager().getUser(player.getName()).getGroupByLadder("default").getPrefix() + player.getName();
 
-            ProxyServer.getInstance().getPlayers().stream().filter(p -> !event.getPlayer().equals(p)).forEach(p -> {
-                p.sendMessage(new TextComponent(BungeeLog.addColor("&8[" + formattedName + "&8]&e joined the game.")));
-            });
+                BungeeLog.log(formattedName + " &ejoined the game from IP: &b" + player.getAddress());
+                Configuration config = getConfig(event.getPlayer().getName());
+
+                ProxyServer.getInstance().getPlayers().stream().filter(p -> !event.getPlayer().equals(p)).forEach(p -> {
+                    p.sendMessage(new TextComponent(BungeeLog.addColor("&8[" + formattedName + "&8]&e joined the game.")));
+                });
+
+                connected.add(player);
+            }
         }
     }
 
@@ -80,6 +90,10 @@ public class ConnectHandler implements Listener {
             String address = player.getAddress().toString().replaceAll(":" + player.getAddress().getPort(), "");
 
             BungeeLog.log(formattedName + " &equit the game.");
+
+            if (connected.contains(player)) {
+                connected.remove(player);
+            }
 
             Configuration config = getConfig(name);
 
@@ -99,7 +113,7 @@ public class ConnectHandler implements Listener {
             }
 
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
-                p.sendMessage(new TextComponent(BungeeLog.addColor("&8[" + name + "&8]&e quit the game.")));
+                p.sendMessage(new TextComponent(BungeeLog.addColor("&8[" + formattedName + "&8]&e quit the game.")));
             }
         }
     }
