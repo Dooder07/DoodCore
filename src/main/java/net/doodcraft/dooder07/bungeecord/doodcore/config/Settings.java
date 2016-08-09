@@ -95,14 +95,14 @@ public class Settings {
         // save
         try {
             BungeeConfig.saveConfig(config, new File(DoodCorePlugin.plugin.getDataFolder() + File.separator + "config.yml"));
-            BungeeConfig.saveConfig(config, new File(DoodCorePlugin.plugin.getDataFolder() + File.separator + "locale.yml"));
+            BungeeConfig.saveConfig(locale, new File(DoodCorePlugin.plugin.getDataFolder() + File.separator + "locale.yml"));
+
+            // set
+            setNewConfigValues(config);
+            setNewLocaleValues(locale);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // set
-        setNewConfigValues(config);
-        setNewLocaleValues(locale);
     }
 
     public static void setNewConfigValues(Configuration config) {
@@ -133,8 +133,6 @@ public class Settings {
     }
 
     public static void add(Configuration config, String key, Object value) {
-        if (config.get(key) == null) {
-            config.set(key, value);
-        }
+        config.set(key, value);
     }
 }

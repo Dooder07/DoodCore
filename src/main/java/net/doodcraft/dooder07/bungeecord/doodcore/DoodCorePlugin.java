@@ -17,6 +17,7 @@ public class DoodCorePlugin extends Plugin {
         plugin = this;
 
         Settings.setupDefaults();
+        Settings.reload();
 
         registerEvents(plugin, new ConnectHandler(), new BungeeLog(), new MaintenanceMode(), new PasswordBruteForce());
         registerCommands();

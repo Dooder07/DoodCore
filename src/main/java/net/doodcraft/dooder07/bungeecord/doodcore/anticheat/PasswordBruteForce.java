@@ -1,6 +1,6 @@
 package net.doodcraft.dooder07.bungeecord.doodcore.anticheat;
 
-import net.doodcraft.dooder07.spigot.doodcore.config.Settings;
+import net.doodcraft.dooder07.bungeecord.doodcore.config.Settings;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
